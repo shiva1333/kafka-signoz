@@ -1,12 +1,14 @@
 ### Introduction
-Ready to use guide to setup client side instrumentation and metrics collection (brokers, topics, consumers, producer and consumer clients) in kafka via opentelemetry and SigNoz.
-Soon, we will be introducing deep corelation and insights with producer and consumer spans with minimal configurations so that end users can get deep insights into their kafka clusters down to every request.
+Ready-to-use guide to set up client-side instrumentation and metrics collection (brokers, topics, consumers, producer and consumer clients) in Kafka via opentelemetry and SigNoz.
+Soon, we will be introducing deep correlation and insights with producer and consumer spans with minimal configurations so that end users can get deep insights into their Kafka clusters down to every request.
+
+![kafka-otel-signoz](https://github.com/shivanshuraj1333/kafka-opentelemetry-instrumentation/assets/26167974/81fa5560-ebad-4f2d-8948-83457e3e13c5)
 
 **Note:** 
-1) This guide is a reference for a production grade kafka monitoring and instrumentation, this repo is intended to familiarize you with the involved complexities.
+1) This guide is a reference for a production-grade kafka monitoring and instrumentation, this repo is intended to familiarize you with the involved complexities.
 2) All the tools used are open source and are licensed under Apache and MIT license.
 ---
-### Steps to follow (ready to use guide)
+### Steps to follow (ready-to-use guide)
 We will follow the following steps:
 1) Kafka Setup (VM or container)
 2) (optional) Opentelemetry Javaagent installation
@@ -15,9 +17,9 @@ We will follow the following steps:
 4) (optional) Opentelemetry JMX metrics collector installation
 5) OpenTelmetry collector setup
 
-For the sake of simplicity, (1), (2), and (3) are supposed to be in same host (VM, laptop, containerised environment).
+For the sake of simplicity, (1), (2), and (3) are supposed to be in the same host (VM, laptop, containerised environment).
 
-Last section contains some Troubleshooting tips!!
+The last section contains some Troubleshooting tips!!
 
 ---
 ### **Step 1:** Kafka Setup
