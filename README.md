@@ -1,11 +1,12 @@
-## kafka-opentelemetry-instrumentation
+### Introduction
 Ready to use guide to setup client side instrumentation and metrics collection (brokers, topics, consumers, producer and consumer clients) in kafka via opentelemetry and SigNoz.
 Soon, we will be introducing deep corelation and insights with producer and consumer spans with minimal configurations so that end users can get deep insights into their kafka clusters down to every request.
 
-**Notes:** 
+**Note:** 
 1) This guide is a reference for a production grade kafka monitoring and instrumentation, this repo is intended to familiarize you with the involved complexities.
 2) All the tools used are open source and are licensed under Apache and MIT license.
-
+---
+### Steps to follow (ready to use guide)
 We will follow the following steps:
 1) Kafka Setup (VM or container)
 2) (optional) Opentelemetry Javaagent installation
@@ -18,6 +19,7 @@ For the sake of simplicity, (1), (2), and (3) are supposed to be in same host (V
 
 Last section contains some Troubleshooting tips!!
 
+---
 ### **Step 1:** Kafka Setup
  - **Kafka installation:** </br>
 --> [Download](https://www.apache.org/dyn/closer.cgi?path=/kafka/3.7.0/kafka_2.13-3.7.0.tgz) the latest Kafka release and extract it.
@@ -88,7 +90,7 @@ Last section contains some Troubleshooting tips!!
   bin/kafka-console-consumer.sh --topic topic1 --from-beginning --bootstrap-server localhost:9092
   > (receive the messages)
   ```
-
+---
 ### Step 2: Opentelemetry Javaagent installation
 - Javaagent setup</br>
   --> Make sure the Java agent is present in the `kafka-opentelemetry-instrumentation/opentelemetry-javagent` directory
@@ -106,6 +108,7 @@ Last section contains some Troubleshooting tips!!
   ```
   --> (_Optional:_) Read OpenTelemetry Java Agent configurations ([reference](https://opentelemetry.io/docs/languages/java/automatic/))</br>
 
+---
 ### Step 3: Java producer-consumer app setup
  - Use `kafka-app-otel` to start kafka producer and consumer using OTeL Java agent
    ```bash
@@ -140,7 +143,7 @@ Last section contains some Troubleshooting tips!!
            -Dotel.instrumentation.kafka.metric-reporter.enabled=true \
            -jar ${PWD}/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar
    ```
-
+---
 ### Step 4: SigNoz setup
 The Metrics and Spans collected from Kafka would be forwarded to SigNoz via intermediary opentelemetry collector to visualise and see how Kafka components behaves as we increase load on it.
 - For ease of configuration try [Setup SigNoz Cloud](https://signoz.io/docs/cloud/) 
@@ -149,10 +152,11 @@ The Metrics and Spans collected from Kafka would be forwarded to SigNoz via inte
 **Note:** If you self host SigNoz in kubernetes, make sure the signoz-collector endpoint is reachable from your host machine where Kafka is installed.
 e.g. if you use minikube to setup SigNoz, you would need to use `minikube service <signoz-collector> -n <namespace> --url` to access the service outside minikube, read more [here](https://minikube.sigs.k8s.io/docs/handbook/accessing/) for minikube.
 
+---
 ### Step 5: OpenTelmetry collector setup
 Download the JMX metrics collector to collect Kafka metrics (used in collector config)
 
-
+---
 ### Step 6: OpenTelmetry collector setup
 Setup a local [opentelemetry-collector-contrib](https://github.com/open-telemetry/opentelemetry-collector-contrib) to collect JMX metrics from Kafka and collect spans generated from Kafka producer and Consumer clients. </br>
 The Metrics and Spans collected from Kafka would be forwarded to SigNoz to visualise and see how Kafka behaves as we increase load on it.
@@ -164,4 +168,10 @@ e.g. if you're running the binary on your host machine, place it the root of the
 ```bash
 ./otelcol-contrib --config ${PWD}/collector/collector-contrib-config.yaml
 ```
+---
 ### Troubleshooting
+
+---
+### Contributing
+
+If you have some suggestions or want to improve the experience of the repo feel free to create an issue or open a pull request.
