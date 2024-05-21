@@ -1,0 +1,92 @@
+ResourceSpans #0
+Resource SchemaURL: https://opentelemetry.io/schemas/1.24.0
+Resource attributes:
+     -> host.arch: Str(aarch64)
+     -> host.name: Str(xs-MacBook-Pro.local)
+     -> os.description: Str(Mac OS X 14.1.1)
+     -> os.type: Str(darwin)
+     -> process.command_args: Slice(["/Users/x/Library/Java/JavaVirtualMachines/openjdk-22.0.1/Contents/Home/bin/java","-javaagent:/Users/x/oss/kafka-opentelemetry-instrumentation/opentelemetry-javagent/opentelemetry-javaagent.jar","-Dotel.service.name=producer-svc","-Dotel.traces.exporter=otlp","-Dotel.metrics.exporter=otlp","-Dotel.logs.exporter=otlp","-jar","/Users/x/oss/kafka-opentelemetry-instrumentation/kafka-app-otel/kafka-producer/target/kafka-producer-1.0-SNAPSHOT-jar-with-dependencies.jar"])
+     -> process.executable.path: Str(/Users/x/Library/Java/JavaVirtualMachines/openjdk-22.0.1/Contents/Home/bin/java)
+     -> process.pid: Int(65922)
+     -> process.runtime.description: Str(Oracle Corporation OpenJDK 64-Bit Server VM 22.0.1+8-16)
+     -> process.runtime.name: Str(OpenJDK Runtime Environment)
+     -> process.runtime.version: Str(22.0.1+8-16)
+     -> service.instance.id: Str(bc52f437-2ab4-4b06-ad65-ae8fdd295db4)
+     -> service.name: Str(producer-svc)
+     -> telemetry.distro.name: Str(opentelemetry-java-instrumentation)
+     -> telemetry.distro.version: Str(2.4.0)
+     -> telemetry.sdk.language: Str(java)
+     -> telemetry.sdk.name: Str(opentelemetry)
+     -> telemetry.sdk.version: Str(1.38.0)
+ScopeSpans #0
+ScopeSpans SchemaURL:
+InstrumentationScope io.opentelemetry.kafka-clients-0.11 2.4.0-alpha
+Span #0
+    Trace ID       : d373467a29492793345307e726fb1404
+    Parent ID      :
+    ID             : ee72a4415b8d6574
+    Name           : topic1 publish
+    Kind           : Producer
+    Start time     : 2024-05-21 15:16:46.963331 +0000 UTC
+    End time       : 2024-05-21 15:16:47.167285417 +0000 UTC
+    Status code    : Unset
+    Status message :
+Attributes:
+     -> messaging.kafka.message.offset: Int(4)
+     -> messaging.kafka.message.key: Str(MY_KEY)
+     -> messaging.system: Str(kafka)
+     -> messaging.destination.partition.id: Str(0)
+     -> messaging.destination.name: Str(topic1)
+     -> messaging.operation: Str(publish)
+     -> thread.id: Int(40)
+     -> messaging.client_id: Str(producer-1)
+     -> thread.name: Str(Thread-2)
+	{"kind": "exporter", "data_type": "traces", "name": "debug"}
+2024-05-21T17:16:51.380+0200	info	TracesExporter	{"kind": "exporter", "data_type": "traces", "name": "debug", "resource spans": 1, "spans": 1}
+2024-05-21T17:16:51.380+0200	info	ResourceSpans #0
+Resource SchemaURL: https://opentelemetry.io/schemas/1.24.0
+Resource attributes:
+     -> host.arch: Str(aarch64)
+     -> host.name: Str(xs-MacBook-Pro.local)
+     -> os.description: Str(Mac OS X 14.1.1)
+     -> os.type: Str(darwin)
+     -> process.command_args: Slice(["/Users/x/Library/Java/JavaVirtualMachines/openjdk-22.0.1/Contents/Home/bin/java","-javaagent:/Users/x/oss/kafka-opentelemetry-instrumentation/opentelemetry-javagent/opentelemetry-javaagent.jar","-Dotel.service.name=consumer-svc","-Dotel.traces.exporter=otlp","-Dotel.metrics.exporter=otlp","-Dotel.logs.exporter=otlp","-Dotel.instrumentation.kafka.producer-propagation.enabled=true","-Dotel.instrumentation.kafka.experimental-span-attributes=true","-Dotel.instrumentation.kafka.metric-reporter.enabled=true","-jar","/Users/x/oss/kafka-opentelemetry-instrumentation/kafka-app-otel/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar"])
+     -> process.executable.path: Str(/Users/x/Library/Java/JavaVirtualMachines/openjdk-22.0.1/Contents/Home/bin/java)
+     -> process.pid: Int(65706)
+     -> process.runtime.description: Str(Oracle Corporation OpenJDK 64-Bit Server VM 22.0.1+8-16)
+     -> process.runtime.name: Str(OpenJDK Runtime Environment)
+     -> process.runtime.version: Str(22.0.1+8-16)
+     -> service.instance.id: Str(973a5a51-3b02-49e3-be6f-527c56865359)
+     -> service.name: Str(consumer-svc)
+     -> telemetry.distro.name: Str(opentelemetry-java-instrumentation)
+     -> telemetry.distro.version: Str(2.4.0)
+     -> telemetry.sdk.language: Str(java)
+     -> telemetry.sdk.name: Str(opentelemetry)
+     -> telemetry.sdk.version: Str(1.38.0)
+ScopeSpans #0
+ScopeSpans SchemaURL:
+InstrumentationScope io.opentelemetry.kafka-clients-0.11 2.4.0-alpha
+Span #0
+    Trace ID       : d373467a29492793345307e726fb1404
+    Parent ID      : ee72a4415b8d6574
+    ID             : 9acfab51e1b25826
+    Name           : topic1 process
+    Kind           : Consumer
+    Start time     : 2024-05-21 15:16:47.166954 +0000 UTC
+    End time       : 2024-05-21 15:16:47.167983166 +0000 UTC
+    Status code    : Unset
+    Status message :
+Attributes:
+     -> messaging.kafka.message.offset: Int(4)
+     -> messaging.kafka.consumer.group: Str(my-consumer-group)
+     -> messaging.kafka.message.key: Str(MY_KEY)
+     -> messaging.system: Str(kafka)
+     -> messaging.destination.partition.id: Str(0)
+     -> kafka.record.queue_time_ms: Int(30)
+     -> messaging.destination.name: Str(topic1)
+     -> messaging.operation: Str(process)
+     -> thread.id: Int(39)
+     -> messaging.client_id: Str(consumer-my-consumer-group-1)
+     -> thread.name: Str(Thread-2)
+     -> messaging.message.body.size: Int(10)
+	{"kind": "exporter", "data_type": "traces", "name": "debug"}

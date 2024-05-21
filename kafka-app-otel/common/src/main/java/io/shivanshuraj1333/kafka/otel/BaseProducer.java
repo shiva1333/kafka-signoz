@@ -18,7 +18,8 @@ public abstract class BaseProducer {
     private static final String TOPIC_ENV_VAR = "TOPIC";
     private static final String NUM_MESSAGES_ENV_VAR = "NUM_MESSAGES";
     private static final String DELAY_ENV_VAR = "DELAY";
-    private static final String PRODUCER_KEY = "MY_KEY";
+    private static final String PARTITION_KEY_ENV_VAR = "PARTITION_KEY";
+    private static final String PARTITION_KEY = "my-key";
 
     private static final String DEFAULT_BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String DEFAULT_TOPIC = "my-topic";
@@ -29,6 +30,7 @@ public abstract class BaseProducer {
 
     protected String bootstrapServers;
     protected String topic;
+    protected String producerkey;
     protected int numMessages;
     protected long delay;
     protected Producer<String, String> producer;
@@ -37,7 +39,7 @@ public abstract class BaseProducer {
         try {
             for (int i = 0; i < this.numMessages; i++) {
                 String message = "my-value-" + i;
-                ProducerRecord<String, String> record = new ProducerRecord<>(this.topic, PRODUCER_KEY, message);
+                ProducerRecord<String, String> record = new ProducerRecord<>(this.topic, this.producerkey, message);
                 this.producer.send(record);
                 log.info("Message [{}] sent to topic [{}]", message, this.topic);
                 Thread.sleep(this.delay);
@@ -52,6 +54,7 @@ public abstract class BaseProducer {
     public void loadConfiguration(Map<String, String> map) {
         this.bootstrapServers = map.getOrDefault(BOOTSTRAP_SERVERS_ENV_VAR, DEFAULT_BOOTSTRAP_SERVERS);
         this.topic = map.getOrDefault(TOPIC_ENV_VAR, DEFAULT_TOPIC);
+        this.producerkey = map.getOrDefault(PARTITION_KEY_ENV_VAR, PARTITION_KEY);
         this.numMessages = Integer.parseInt(map.getOrDefault(NUM_MESSAGES_ENV_VAR, DEFAULT_NUM_MESSAGES));
         this.delay = Long.parseLong(map.getOrDefault(DELAY_ENV_VAR, DEFAULT_DELAY));
     }
