@@ -2,9 +2,9 @@
 Ready-to-use guide to set up client-side instrumentation and metrics collection (brokers, topics, consumers, producer and consumer clients) in Kafka via opentelemetry and SigNoz.
 Soon, we will be introducing deep correlation and insights with producer and consumer spans with minimal configurations so that end users can get deep insights into their Kafka clusters down to every request.
 
-![kafka-otel-signoz](https://github.com/shivanshuraj1333/kafka-opentelemetry-instrumentation/assets/26167974/81fa5560-ebad-4f2d-8948-83457e3e13c5)
+![kafka-otel-signoz](assets/kafka-otel-signoz.png)
 
-**Note:** 
+**Note:**
 1) This guide is a reference for a production-grade kafka monitoring and instrumentation, this repo is intended to familiarize you with the involved complexities.
 2) All the tools used are open source and are licensed under Apache and MIT license.
 ---
@@ -14,7 +14,7 @@ We will follow the following steps:
 2) (optional) Opentelemetry Javaagent installation
 2) Java producer-consumer app setup
 3) SigNoz setup
-4) (optional) Opentelemetry JMX metrics collector installation
+4) (optional) Opentelemetry JMX metrics collector agent installation
 5) OpenTelmetry collector setup
 
 For the sake of simplicity, (1), (2), and (3) are supposed to be in the same host (VM, laptop, containerised environment).

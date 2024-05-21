@@ -2,10 +2,10 @@ receivers:
   otlp:
     protocols:
       grpc:
-        # OTeL recevier endpoint (grpc)
+        # OTeL receiver endpoint (grpc)
         endpoint: 127.0.0.1:4317
       http:
-        # OTeL recevier endpoint (http)
+        # OTeL receiver endpoint (http)
         endpoint: 127.0.0.1:4318
   kafkametrics:
     brokers:
@@ -18,14 +18,14 @@ receivers:
       - topics
       - consumers
   jmx:
-    # configure the path where you installed opentelemetry-jmx-metrics recevier
+    # configure the path where you installed opentelemetry-jmx-metrics receiver
     jar_path: ${PWD}/opentelemetry-jmx-metrics.jar
     endpoint: service:jmx:rmi:///jndi/rmi://127.0.0.1:2020/jmxrmi
     target_system: kafka
     collection_interval: 10s
     log_level: info
   jmx/2:
-    # configure the path where you installed opentelemetry-jmx-metrics recevier
+    # configure the path where you installed opentelemetry-jmx-metrics receiver
     jar_path: ${PWD}/opentelemetry-jmx-metrics.jar
     endpoint: service:jmx:rmi:///jndi/rmi://127.0.0.1:2021/jmxrmi
     target_system: kafka
