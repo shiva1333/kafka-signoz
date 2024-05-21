@@ -112,10 +112,6 @@ The last section contains some Troubleshooting tips!!
 
 ---
 ### Step 3: Java producer-consumer app setup
- - Use `kafka-app-otel` to start kafka producer and consumer using OTeL Java agent
-   ```bash
-   cd kafka-app-otel
-   ```
    ### Running the Producer and Consumer app with _Opentelemetry Javaagent_
  - Either use jar present in target folders of `kafka-app-otel` or build one, make sure you've Java and mvn installed to build
  --> Go to project root
