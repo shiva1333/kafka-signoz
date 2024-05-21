@@ -139,7 +139,7 @@ The last section contains some Troubleshooting tips!!
            -Dotel.instrumentation.kafka.producer-propagation.enabled=true \
            -Dotel.instrumentation.kafka.experimental-span-attributes=true \
            -Dotel.instrumentation.kafka.metric-reporter.enabled=true \
-           -jar ${PWD}/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar
+           -jar ${PWD}/kafka-app-otel/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar
    ```
 ---
 ### Step 4: SigNoz setup
