@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/kafka-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/kafka-consumer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/kafka-producer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/kafka-producer/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-app-otel/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
