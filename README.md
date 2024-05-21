@@ -131,7 +131,7 @@ The last section contains some Troubleshooting tips!!
    --> Run Consumer app with Javaagent
    ```bash
    # start consumer
-   java -javaagent:${PWD}/opentelemetry-javaagent.jar \
+   java -javaagent:${PWD}/opentelemetry-javagent/opentelemetry-javaagent.jar \
            -Dotel.service.name=consumer-svc \
            -Dotel.traces.exporter=otlp \
            -Dotel.metrics.exporter=otlp \
