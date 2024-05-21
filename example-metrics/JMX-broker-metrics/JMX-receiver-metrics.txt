@@ -1,0 +1,349 @@
+Resource SchemaURL:
+Resource attributes:
+     -> service.name: Str(unknown_service:java)
+     -> telemetry.sdk.language: Str(java)
+     -> telemetry.sdk.name: Str(opentelemetry)
+     -> telemetry.sdk.version: Str(1.35.0)
+ScopeMetrics #0
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.contrib.jmxmetrics 1.33.0-alpha
+Metric #0
+Descriptor:
+     -> Name: kafka.leader.election.rate
+     -> Description: leader election rate - increasing indicates broker failures
+     -> Unit: {elections}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #1
+Descriptor:
+     -> Name: kafka.request.failed
+     -> Description: The number of requests to the broker resulting in a failure
+     -> Unit: {requests}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetch)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #2
+Descriptor:
+     -> Name: kafka.purgatory.size
+     -> Description: The number of requests waiting in purgatory
+     -> Unit: {requests}
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetch)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 1077
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #3
+Descriptor:
+     -> Name: kafka.request.time.avg
+     -> Description: The average time the broker has taken to service requests
+     -> Unit: ms
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetchfollower)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 502.370346
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 9.875000
+NumberDataPoints #2
+Data point attributes:
+     -> type: Str(fetchconsumer)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 501.131460
+Metric #4
+Descriptor:
+     -> Name: kafka.controller.active.count
+     -> Description: controller is active on broker
+     -> Unit: {controllers}
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #5
+Descriptor:
+     -> Name: kafka.request.time.total
+     -> Description: The total time the broker has taken to service requests
+     -> Unit: ms
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetchfollower)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 5961
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 8
+NumberDataPoints #2
+Data point attributes:
+     -> type: Str(fetchconsumer)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 3772
+Metric #6
+Descriptor:
+     -> Name: kafka.logs.flush.time.99p
+     -> Description: log flush time - 99th percentile
+     -> Unit: ms
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0.000000
+Metric #7
+Descriptor:
+     -> Name: kafka.partition.under_replicated
+     -> Description: The number of under replicated partitions
+     -> Unit: {partitions}
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #8
+Descriptor:
+     -> Name: kafka.logs.flush.time.median
+     -> Description: log flush time - 50th percentile
+     -> Unit: ms
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0.000000
+Metric #9
+Descriptor:
+     -> Name: kafka.unclean.election.rate
+     -> Description: unclean leader election rate - increasing indicates broker failures
+     -> Unit: {elections}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #10
+Descriptor:
+     -> Name: kafka.network.io
+     -> Description: The bytes received or sent by the broker
+     -> Unit: by
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> state: Str(out)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 1037
+NumberDataPoints #1
+Data point attributes:
+     -> state: Str(in)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 53110
+Metric #11
+Descriptor:
+     -> Name: kafka.partition.offline
+     -> Description: The number of partitions offline
+     -> Unit: {partitions}
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #12
+Descriptor:
+     -> Name: kafka.request.time.50p
+     -> Description: The 50th percentile time the broker has taken to service requests
+     -> Unit: ms
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetchfollower)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 502.000000
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 2.000000
+NumberDataPoints #2
+Data point attributes:
+     -> type: Str(fetchconsumer)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 502.000000
+Metric #13
+Descriptor:
+     -> Name: kafka.logs.flush.time.count
+     -> Description: log flush count
+     -> Unit: ms
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #14
+Descriptor:
+     -> Name: kafka.isr.operation.count
+     -> Description: The number of in-sync replica shrink and expand operations
+     -> Unit: {operations}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> operation: Str(shrink)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+NumberDataPoints #1
+Data point attributes:
+     -> operation: Str(expand)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #15
+Descriptor:
+     -> Name: kafka.request.queue
+     -> Description: size of the request queue
+     -> Unit: {requests}
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+Metric #16
+Descriptor:
+     -> Name: kafka.request.time.99p
+     -> Description: The 99th percentile time the broker has taken to service requests
+     -> Unit: ms
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetchfollower)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 505.000000
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 54.000000
+NumberDataPoints #2
+Data point attributes:
+     -> type: Str(fetchconsumer)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 505.000000
+Metric #17
+Descriptor:
+     -> Name: kafka.request.count
+     -> Description: The number of requests received by the broker
+     -> Unit: {requests}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(fetch)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 15683
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(produce)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 397
+Metric #18
+Descriptor:
+     -> Name: kafka.message.count
+     -> Description: The number of messages received by the broker
+     -> Unit: {messages}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 397
+Metric #19
+Descriptor:
+     -> Name: kafka.partition.count
+     -> Description: The number of partitions on the broker
+     -> Unit: {partitions}
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 54
+Metric #20
+Descriptor:
+     -> Name: kafka.max.lag
+     -> Description: max lag in messages between follower and leader replicas
+     -> Unit: {messages}
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+ScopeMetrics #1
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.sdk.logs
+Metric #0
+Descriptor:
+     -> Name: queueSize
+     -> Description: The number of items queued
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> processorType: Str(BatchLogRecordProcessor)
+StartTimestamp: 2024-05-20 16:48:17.411 +0000 UTC
+Timestamp: 2024-05-20 16:48:27.42 +0000 UTC
+Value: 0
+	{"kind": "exporter", "data_type": "metrics", "name": "debug"}

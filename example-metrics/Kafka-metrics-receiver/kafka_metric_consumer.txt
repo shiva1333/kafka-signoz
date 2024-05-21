@@ -1,0 +1,1624 @@
+ResourceMetrics #0
+Resource SchemaURL: https://opentelemetry.io/schemas/1.24.0
+Resource attributes:
+     -> host.arch: Str(aarch64)
+     -> host.name: Str(xs-MacBook-Pro.local)
+     -> os.description: Str(Mac OS X 14.1.1)
+     -> os.type: Str(darwin)
+     -> process.command_args: Slice(["/Users/x/Library/Java/JavaVirtualMachines/openjdk-22.0.1/Contents/Home/bin/java","-javaagent:/Users/x/oss/kafka/kafka-app-otel/opentelemetry-javaagent.jar","-Dotel.service.name=consumer-svc","-Dotel.traces.exporter=otlp","-Dotel.metrics.exporter=otlp","-Dotel.logs.exporter=otlp","-Dotel.instrumentation.kafka.producer-propagation.enabled=true","-Dotel.instrumentation.kafka.experimental-span-attributes=true","-Dotel.instrumentation.kafka.metric-reporter.enabled=true","-jar","/Users/x/oss/kafka/kafka-app-otel/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar"])
+     -> process.executable.path: Str(/Users/x/Library/Java/JavaVirtualMachines/openjdk-22.0.1/Contents/Home/bin/java)
+     -> process.pid: Int(47654)
+     -> process.runtime.description: Str(Oracle Corporation OpenJDK 64-Bit Server VM 22.0.1+8-16)
+     -> process.runtime.name: Str(OpenJDK Runtime Environment)
+     -> process.runtime.version: Str(22.0.1+8-16)
+     -> service.instance.id: Str(c5e41f01-2487-4444-a8ee-d04e910ba4ba)
+     -> service.name: Str(consumer-svc)
+     -> telemetry.distro.name: Str(opentelemetry-java-instrumentation)
+     -> telemetry.distro.version: Str(2.4.0)
+     -> telemetry.sdk.language: Str(java)
+     -> telemetry.sdk.name: Str(opentelemetry)
+     -> telemetry.sdk.version: Str(1.38.0)
+ScopeMetrics #0
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.sdk.trace
+Metric #0
+Descriptor:
+     -> Name: processedSpans
+     -> Description: The number of spans processed by the BatchSpanProcessor. [dropped=true if they were dropped due to high throughput]
+     -> Unit: 1
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> dropped: Bool(false)
+     -> processorType: Str(BatchSpanProcessor)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1
+Metric #1
+Descriptor:
+     -> Name: queueSize
+     -> Description: The number of items queued
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> processorType: Str(BatchSpanProcessor)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0
+ScopeMetrics #1
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.runtime-telemetry-java8 2.4.0-alpha
+Metric #0
+Descriptor:
+     -> Name: jvm.class.count
+     -> Description: Number of classes currently loaded.
+     -> Unit: {class}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8487
+Metric #1
+Descriptor:
+     -> Name: jvm.cpu.recent_utilization
+     -> Description: Recent CPU utilization for the process as reported by the JVM.
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000441
+Metric #2
+Descriptor:
+     -> Name: jvm.memory.used_after_last_gc
+     -> Description: Measure of memory used, as measured after the most recent garbage collection event on this pool.
+     -> Unit: By
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Eden Space)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0
+NumberDataPoints #1
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Old Gen)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 16169520
+NumberDataPoints #2
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Survivor Space)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4650976
+Metric #3
+Descriptor:
+     -> Name: jvm.class.unloaded
+     -> Description: Number of classes unloaded since JVM start.
+     -> Unit: {class}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0
+Metric #4
+Descriptor:
+     -> Name: jvm.class.loaded
+     -> Description: Number of classes loaded since JVM start.
+     -> Unit: {class}
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8487
+Metric #5
+Descriptor:
+     -> Name: jvm.thread.count
+     -> Description: Number of executing platform threads.
+     -> Unit: {thread}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> jvm.thread.daemon: Bool(true)
+     -> jvm.thread.state: Str(waiting)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2
+NumberDataPoints #1
+Data point attributes:
+     -> jvm.thread.daemon: Bool(true)
+     -> jvm.thread.state: Str(runnable)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4
+NumberDataPoints #2
+Data point attributes:
+     -> jvm.thread.daemon: Bool(true)
+     -> jvm.thread.state: Str(timed_waiting)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 6
+NumberDataPoints #3
+Data point attributes:
+     -> jvm.thread.daemon: Bool(false)
+     -> jvm.thread.state: Str(runnable)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2
+Metric #6
+Descriptor:
+     -> Name: jvm.memory.used
+     -> Description: Measure of memory used.
+     -> Unit: By
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'non-profiled nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4357376
+NumberDataPoints #1
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Eden Space)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 46137344
+NumberDataPoints #2
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'non-nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1600000
+NumberDataPoints #3
+Data point attributes:
+     -> jvm.memory.pool.name: Str(Metaspace)
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 41103584
+NumberDataPoints #4
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Old Gen)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 16169520
+NumberDataPoints #5
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'profiled nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 13470592
+NumberDataPoints #6
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Survivor Space)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4650976
+NumberDataPoints #7
+Data point attributes:
+     -> jvm.memory.pool.name: Str(Compressed Class Space)
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 5011784
+Metric #7
+Descriptor:
+     -> Name: jvm.cpu.count
+     -> Description: Number of processors available to the Java virtual machine.
+     -> Unit: {cpu}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 12
+Metric #8
+Descriptor:
+     -> Name: jvm.cpu.time
+     -> Description: CPU time used by the process as reported by the JVM.
+     -> Unit: s
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 29.623996
+Metric #9
+Descriptor:
+     -> Name: jvm.memory.committed
+     -> Description: Measure of memory committed.
+     -> Unit: By
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'non-profiled nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4390912
+NumberDataPoints #1
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Eden Space)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 176160768
+NumberDataPoints #2
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'non-nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2555904
+NumberDataPoints #3
+Data point attributes:
+     -> jvm.memory.pool.name: Str(Metaspace)
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 41615360
+NumberDataPoints #4
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Old Gen)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 125829120
+NumberDataPoints #5
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'profiled nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 13500416
+NumberDataPoints #6
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Survivor Space)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8388608
+NumberDataPoints #7
+Data point attributes:
+     -> jvm.memory.pool.name: Str(Compressed Class Space)
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 5242880
+Metric #10
+Descriptor:
+     -> Name: jvm.gc.duration
+     -> Description: Duration of JVM garbage collection actions.
+     -> Unit: s
+     -> DataType: Histogram
+     -> AggregationTemporality: Cumulative
+HistogramDataPoints #0
+Data point attributes:
+     -> jvm.gc.action: Str(end of minor GC)
+     -> jvm.gc.name: Str(G1 Young Generation)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Count: 6
+Sum: 0.037000
+Min: 0.002000
+Max: 0.016000
+ExplicitBounds #0: 0.010000
+ExplicitBounds #1: 0.100000
+ExplicitBounds #2: 1.000000
+ExplicitBounds #3: 10.000000
+Buckets #0, Count: 5
+Buckets #1, Count: 1
+Buckets #2, Count: 0
+Buckets #3, Count: 0
+Buckets #4, Count: 0
+HistogramDataPoints #1
+Data point attributes:
+     -> jvm.gc.action: Str(end of concurrent GC pause)
+     -> jvm.gc.name: Str(G1 Concurrent GC)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Count: 4
+Sum: 0.004000
+Min: 0.000000
+Max: 0.003000
+ExplicitBounds #0: 0.010000
+ExplicitBounds #1: 0.100000
+ExplicitBounds #2: 1.000000
+ExplicitBounds #3: 10.000000
+Buckets #0, Count: 4
+Buckets #1, Count: 0
+Buckets #2, Count: 0
+Buckets #3, Count: 0
+Buckets #4, Count: 0
+Metric #11
+Descriptor:
+     -> Name: jvm.memory.limit
+     -> Description: Measure of max obtainable memory.
+     -> Unit: By
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'non-profiled nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 122912768
+NumberDataPoints #1
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'non-nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 5849088
+NumberDataPoints #2
+Data point attributes:
+     -> jvm.memory.pool.name: Str(G1 Old Gen)
+     -> jvm.memory.type: Str(heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8589934592
+NumberDataPoints #3
+Data point attributes:
+     -> jvm.memory.pool.name: Str(CodeHeap 'profiled nmethods')
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 122896384
+NumberDataPoints #4
+Data point attributes:
+     -> jvm.memory.pool.name: Str(Compressed Class Space)
+     -> jvm.memory.type: Str(non_heap)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1073741824
+ScopeMetrics #2
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.exporters.otlp-http
+Metric #0
+Descriptor:
+     -> Name: otlp.exporter.exported
+     -> Description:
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> success: Bool(true)
+     -> type: Str(span)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1
+NumberDataPoints #1
+Data point attributes:
+     -> success: Bool(false)
+     -> type: Str(log)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8
+NumberDataPoints #2
+Data point attributes:
+     -> success: Bool(true)
+     -> type: Str(log)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 21
+Metric #1
+Descriptor:
+     -> Name: otlp.exporter.seen
+     -> Description:
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> type: Str(span)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1
+NumberDataPoints #1
+Data point attributes:
+     -> type: Str(log)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 29
+ScopeMetrics #3
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.sdk.logs
+Metric #0
+Descriptor:
+     -> Name: processedLogs
+     -> Description: The number of logs processed by the BatchLogRecordProcessor. [dropped=true if they were dropped due to high throughput]
+     -> Unit: 1
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> dropped: Bool(false)
+     -> processorType: Str(BatchLogRecordProcessor)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 21
+Metric #1
+Descriptor:
+     -> Name: queueSize
+     -> Description: The number of items queued
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> processorType: Str(BatchLogRecordProcessor)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0
+ScopeMetrics #4
+ScopeMetrics SchemaURL:
+InstrumentationScope io.opentelemetry.kafka-clients-0.11 2.4.0-alpha
+Metric #0
+Descriptor:
+     -> Name: kafka.consumer.last_poll_seconds_ago
+     -> Description: The number of seconds since the last poll() invocation.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #1
+Descriptor:
+     -> Name: kafka.consumer.network_io_rate
+     -> Description: The number of network operations (reads or writes) on all connections per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 5.144483
+Metric #2
+Descriptor:
+     -> Name: kafka.consumer.commit_latency_max
+     -> Description: The max time taken for a commit request
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 3.000000
+Metric #3
+Descriptor:
+     -> Name: kafka.consumer.network_io_total
+     -> Description: The total number of network operations (reads or writes) on all connections
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 21549.000000
+Metric #4
+Descriptor:
+     -> Name: kafka.consumer.failed_authentication_total
+     -> Description: The total number of connections with failed authentication
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #5
+Descriptor:
+     -> Name: kafka.consumer.outgoing_byte_total
+     -> Description: The total number of outgoing bytes sent to all servers
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 577611.000000
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 269.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 205.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 328531.000000
+Metric #6
+Descriptor:
+     -> Name: kafka.consumer.failed_reauthentication_total
+     -> Description: The total number of failed re-authentication of connections
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #7
+Descriptor:
+     -> Name: kafka.consumer.io_time_ns_total
+     -> Description: The total time the I/O thread spent doing I/O
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2686838305.000000
+Metric #8
+Descriptor:
+     -> Name: kafka.consumer.incoming_byte_rate
+     -> Description: The number of bytes read off all sockets per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 42.187765
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 12.024762
+Metric #9
+Descriptor:
+     -> Name: kafka.consumer.fetch_latency_avg
+     -> Description: The average time taken for a fetch request.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 501.971429
+Metric #10
+Descriptor:
+     -> Name: kafka.consumer.last_heartbeat_seconds_ago
+     -> Description: The number of seconds since the last coordinator heartbeat was sent
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #11
+Descriptor:
+     -> Name: kafka.consumer.committed_time_ns_total
+     -> Description: The total time the consumer has spent in committed in nanoseconds
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #12
+Descriptor:
+     -> Name: kafka.consumer.request_size_max
+     -> Description: The maximum size of any request sent.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 68.000000
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 163.000000
+Metric #13
+Descriptor:
+     -> Name: kafka.consumer.request_rate
+     -> Description: The number of requests sent per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2.008941
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.574650
+Metric #14
+Descriptor:
+     -> Name: kafka.consumer.records_lead
+     -> Description: The latest lead of the partition
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> partition: Str(0)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 6.000000
+Metric #15
+Descriptor:
+     -> Name: kafka.consumer.records_consumed_total
+     -> Description: The total number of records consumed
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1.000000
+Metric #16
+Descriptor:
+     -> Name: kafka.consumer.fetch_latency_max
+     -> Description: The max time taken for any fetch request.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 506.000000
+Metric #17
+Descriptor:
+     -> Name: kafka.consumer.fetch_throttle_time_max
+     -> Description: The maximum throttle time in ms
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #18
+Descriptor:
+     -> Name: kafka.consumer.commit_latency_avg
+     -> Description: The average time taken for a commit request
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2.285714
+Metric #19
+Descriptor:
+     -> Name: kafka.consumer.failed_reauthentication_rate
+     -> Description: The number of failed re-authentication of connections per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #20
+Descriptor:
+     -> Name: kafka.consumer.connection_close_total
+     -> Description: The total number of connections closed
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 3.000000
+Metric #21
+Descriptor:
+     -> Name: kafka.consumer.connection_count
+     -> Description: The current number of active connections.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 3.000000
+Metric #22
+Descriptor:
+     -> Name: kafka.consumer.iotime_total
+     -> Description: *Deprecated* The total time the I/O thread spent doing I/O
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2686838305.000000
+Metric #23
+Descriptor:
+     -> Name: kafka.consumer.fetch_throttle_time_avg
+     -> Description: The average throttle time in ms
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #24
+Descriptor:
+     -> Name: kafka.consumer.connection_creation_total
+     -> Description: The total number of new connections established
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 6.000000
+Metric #25
+Descriptor:
+     -> Name: kafka.consumer.rebalance_latency_total
+     -> Description: The total number of milliseconds this consumer has spent in successful rebalances since creation
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 21.000000
+Metric #26
+Descriptor:
+     -> Name: kafka.consumer.request_size_avg
+     -> Description: The average size of requests sent.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 68.000000
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 144.428571
+Metric #27
+Descriptor:
+     -> Name: kafka.consumer.commit_sync_time_ns_total
+     -> Description: The total time the consumer has spent in commitSync in nanoseconds
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #28
+Descriptor:
+     -> Name: kafka.consumer.sync_rate
+     -> Description: The number of group syncs per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #29
+Descriptor:
+     -> Name: kafka.consumer.io_time_ns_avg
+     -> Description: The average length of time for I/O per select call in nanoseconds.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 27675.765700
+Metric #30
+Descriptor:
+     -> Name: kafka.consumer.response_total
+     -> Description: The total number of responses received
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8489.000000
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 3.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2277.000000
+Metric #31
+Descriptor:
+     -> Name: kafka.consumer.commit_rate
+     -> Description: The number of commit calls per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.221940
+Metric #32
+Descriptor:
+     -> Name: kafka.consumer.last_rebalance_seconds_ago
+     -> Description: The number of seconds since the last successful rebalance event
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4537.000000
+Metric #33
+Descriptor:
+     -> Name: kafka.consumer.successful_authentication_rate
+     -> Description: The number of connections with successful authentication per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #34
+Descriptor:
+     -> Name: kafka.consumer.assigned_partitions
+     -> Description: The number of partitions currently assigned to this consumer
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1.000000
+Metric #35
+Descriptor:
+     -> Name: kafka.consumer.heartbeat_response_time_max
+     -> Description: The max time taken to receive a response to a heartbeat request
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2.000000
+Metric #36
+Descriptor:
+     -> Name: kafka.consumer.heartbeat_rate
+     -> Description: The number of heartbeats per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.356086
+Metric #37
+Descriptor:
+     -> Name: kafka.consumer.poll_idle_ratio_avg
+     -> Description: The average fraction of time the consumer's poll() is idle as opposed to waiting for the user code to process records.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.499924
+Metric #38
+Descriptor:
+     -> Name: kafka.consumer.connection_close_rate
+     -> Description: The number of connections closed per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #39
+Descriptor:
+     -> Name: kafka.consumer.time_between_poll_max
+     -> Description: The max delay between invocations of poll() in milliseconds.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 103.000000
+Metric #40
+Descriptor:
+     -> Name: kafka.consumer.fetch_total
+     -> Description: The total number of fetch requests.
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8473.000000
+Metric #41
+Descriptor:
+     -> Name: kafka.consumer.join_rate
+     -> Description: The number of group joins per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #42
+Descriptor:
+     -> Name: kafka.consumer.records_lag
+     -> Description: The latest lag of the partition
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> partition: Str(0)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #43
+Descriptor:
+     -> Name: kafka.consumer.join_total
+     -> Description: The total number of group joins
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1.000000
+Metric #44
+Descriptor:
+     -> Name: kafka.consumer.successful_authentication_total
+     -> Description: The total number of connections with successful authentication
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #45
+Descriptor:
+     -> Name: kafka.consumer.rebalance_rate_per_hour
+     -> Description: The number of successful rebalance events per hour, each event is composed of several failed re-trials until it succeeded
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #46
+Descriptor:
+     -> Name: kafka.consumer.io_wait_time_ns_total
+     -> Description: The total time the I/O thread spent waiting
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4245139083450.000000
+Metric #47
+Descriptor:
+     -> Name: kafka.consumer.response_rate
+     -> Description: The number of responses received per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2.008941
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.547825
+Metric #48
+Descriptor:
+     -> Name: kafka.consumer.bytes_consumed_total
+     -> Description: The total number of bytes consumed
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 86.000000
+Metric #49
+Descriptor:
+     -> Name: kafka.consumer.failed_rebalance_rate_per_hour
+     -> Description: The number of failed rebalance events per hour
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #50
+Descriptor:
+     -> Name: kafka.consumer.connection_creation_rate
+     -> Description: The number of new connections established per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #51
+Descriptor:
+     -> Name: kafka.consumer.sync_total
+     -> Description: The total number of group syncs
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1.000000
+Metric #52
+Descriptor:
+     -> Name: kafka.consumer.successful_authentication_no_reauth_total
+     -> Description: The total number of connections with successful authentication where the client does not support re-authentication
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #53
+Descriptor:
+     -> Name: kafka.consumer.io_wait_ratio
+     -> Description: *Deprecated* The fraction of time the I/O thread spent waiting
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.996357
+Metric #54
+Descriptor:
+     -> Name: kafka.consumer.failed_rebalance_total
+     -> Description: The total number of failed rebalance events
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1.000000
+Metric #55
+Descriptor:
+     -> Name: kafka.consumer.time_between_poll_avg
+     -> Description: The average delay between invocations of poll() in milliseconds.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 100.879888
+Metric #56
+Descriptor:
+     -> Name: kafka.consumer.failed_authentication_rate
+     -> Description: The number of connections with failed authentication per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #57
+Descriptor:
+     -> Name: kafka.consumer.fetch_rate
+     -> Description: The number of fetch requests per second.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2.009185
+Metric #58
+Descriptor:
+     -> Name: kafka.consumer.rebalance_total
+     -> Description: The total number of successful rebalance events, each event is composed of several failed re-trials until it succeeded
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1.000000
+Metric #59
+Descriptor:
+     -> Name: kafka.consumer.heartbeat_total
+     -> Description: The total number of heartbeats
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 1419.000000
+Metric #60
+Descriptor:
+     -> Name: kafka.consumer.commit_total
+     -> Description: The total number of commit calls
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 852.000000
+Metric #61
+Descriptor:
+     -> Name: kafka.consumer.select_rate
+     -> Description: The number of times the I/O layer checked for new I/O to perform per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 22.657618
+Metric #62
+Descriptor:
+     -> Name: kafka.consumer.successful_reauthentication_rate
+     -> Description: The number of successful re-authentication of connections per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #63
+Descriptor:
+     -> Name: kafka.consumer.io_ratio
+     -> Description: *Deprecated* The fraction of time the I/O thread spent doing I/O
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000627
+Metric #64
+Descriptor:
+     -> Name: kafka.consumer.outgoing_byte_rate
+     -> Description: The number of outgoing bytes sent to all servers per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 136.608002
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 82.995841
+Metric #65
+Descriptor:
+     -> Name: kafka.consumer.records_consumed_rate
+     -> Description: The average number of records consumed per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #66
+Descriptor:
+     -> Name: kafka.consumer.incoming_byte_total
+     -> Description: The total number of bytes read off all sockets
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 181001.000000
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 706.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 651.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 52213.000000
+Metric #67
+Descriptor:
+     -> Name: kafka.consumer.bytes_consumed_rate
+     -> Description: The average number of bytes consumed per second
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #68
+Descriptor:
+     -> Name: kafka.consumer.successful_reauthentication_total
+     -> Description: The total number of successful re-authentication of connections
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 0.000000
+Metric #69
+Descriptor:
+     -> Name: kafka.consumer.request_total
+     -> Description: The total number of requests sent
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-0)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 8491.000000
+NumberDataPoints #1
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4.000000
+NumberDataPoints #2
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node--1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 3.000000
+NumberDataPoints #3
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+     -> node-id: Str(node-2147483647)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 2277.000000
+Metric #70
+Descriptor:
+     -> Name: kafka.consumer.io_wait_time_ns_avg
+     -> Description: The average length of time the I/O thread spent waiting for a socket ready for reads or writes in nanoseconds.
+     -> Unit:
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 43974500.625604
+Metric #71
+Descriptor:
+     -> Name: kafka.consumer.select_total
+     -> Description: The total number of times the I/O layer checked for new I/O to perform
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 94768.000000
+Metric #72
+Descriptor:
+     -> Name: kafka.consumer.io_waittime_total
+     -> Description: *Deprecated* The total time the I/O thread spent waiting
+     -> Unit:
+     -> DataType: Sum
+     -> IsMonotonic: true
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> client-id: Str(consumer-my-consumer-group-1)
+StartTimestamp: 2024-05-20 16:40:54.303088 +0000 UTC
+Timestamp: 2024-05-20 17:56:33.553972 +0000 UTC
+Value: 4245139083450.000000
+	{"kind": "exporter", "data_type": "metrics", "name": "debug"}

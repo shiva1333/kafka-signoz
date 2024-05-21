@@ -1,0 +1,11 @@
+Name: kafka.brokers
+Name: kafka.partition.current_offset
+Name: kafka.partition.oldest_offset
+Name: kafka.partition.replicas
+Name: kafka.partition.replicas_in_sync
+Name: kafka.topic.partitions
+Name: kafka.consumer_group.lag
+Name: kafka.consumer_group.lag_sum
+Name: kafka.consumer_group.members
+Name: kafka.consumer_group.offset
+Name: kafka.consumer_group.offset_sum

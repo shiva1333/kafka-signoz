@@ -1,0 +1,262 @@
+ResourceMetrics #0
+Resource SchemaURL:
+ScopeMetrics #0
+ScopeMetrics SchemaURL:
+InstrumentationScope otelcol/kafkametricsreceiver 0.99.0
+Metric #0
+Descriptor:
+     -> Name: kafka.brokers
+     -> Description: Number of brokers in the cluster.
+     -> Unit: {brokers}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+StartTimestamp: 2024-05-20 17:56:11.599438 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.610928 +0000 UTC
+Value: 2
+ResourceMetrics #1
+Resource SchemaURL:
+ScopeMetrics #0
+ScopeMetrics SchemaURL:
+InstrumentationScope otelcol/kafkametricsreceiver 0.99.0
+Metric #0
+Descriptor:
+     -> Name: kafka.partition.current_offset
+     -> Description: Current offset of partition of topic.
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+NumberDataPoints #1
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(1)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 0
+NumberDataPoints #2
+Data point attributes:
+     -> topic: Str(my-topic)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 6
+NumberDataPoints #3
+Data point attributes:
+     -> topic: Str(topic2)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 0
+Metric #1
+Descriptor:
+     -> Name: kafka.partition.oldest_offset
+     -> Description: Oldest offset of partition of topic
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 0
+NumberDataPoints #1
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(1)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 0
+NumberDataPoints #2
+Data point attributes:
+     -> topic: Str(my-topic)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 0
+NumberDataPoints #3
+Data point attributes:
+     -> topic: Str(topic2)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 0
+Metric #2
+Descriptor:
+     -> Name: kafka.partition.replicas
+     -> Description: Number of replicas for partition of topic
+     -> Unit: {replicas}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+NumberDataPoints #1
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(1)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+NumberDataPoints #2
+Data point attributes:
+     -> topic: Str(my-topic)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 1
+NumberDataPoints #3
+Data point attributes:
+     -> topic: Str(topic2)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+Metric #3
+Descriptor:
+     -> Name: kafka.partition.replicas_in_sync
+     -> Description: Number of synchronized replicas of partition
+     -> Unit: {replicas}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+NumberDataPoints #1
+Data point attributes:
+     -> topic: Str(topic1)
+     -> partition: Int(1)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+NumberDataPoints #2
+Data point attributes:
+     -> topic: Str(my-topic)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 1
+NumberDataPoints #3
+Data point attributes:
+     -> topic: Str(topic2)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+Metric #4
+Descriptor:
+     -> Name: kafka.topic.partitions
+     -> Description: Number of partitions in topic.
+     -> Unit: {partitions}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> topic: Str(topic1)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 2
+NumberDataPoints #1
+Data point attributes:
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 1
+NumberDataPoints #2
+Data point attributes:
+     -> topic: Str(topic2)
+StartTimestamp: 2024-05-20 17:56:11.599597 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.611962 +0000 UTC
+Value: 1
+ResourceMetrics #2
+Resource SchemaURL:
+ScopeMetrics #0
+ScopeMetrics SchemaURL:
+InstrumentationScope otelcol/kafkametricsreceiver 0.99.0
+Metric #0
+Descriptor:
+     -> Name: kafka.consumer_group.lag
+     -> Description: Current approximate lag of consumer group at partition of topic
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> group: Str(my-consumer-group)
+     -> topic: Str(my-topic)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599599 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.663286 +0000 UTC
+Value: 0
+Metric #1
+Descriptor:
+     -> Name: kafka.consumer_group.lag_sum
+     -> Description: Current approximate sum of consumer group lag across all partitions of topic
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> group: Str(my-consumer-group)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 17:56:11.599599 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.663286 +0000 UTC
+Value: 0
+Metric #2
+Descriptor:
+     -> Name: kafka.consumer_group.members
+     -> Description: Count of members in the consumer group
+     -> Unit: {members}
+     -> DataType: Sum
+     -> IsMonotonic: false
+     -> AggregationTemporality: Cumulative
+NumberDataPoints #0
+Data point attributes:
+     -> group: Str(my-consumer-group)
+StartTimestamp: 2024-05-20 17:56:11.599599 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.663286 +0000 UTC
+Value: 1
+Metric #3
+Descriptor:
+     -> Name: kafka.consumer_group.offset
+     -> Description: Current offset of the consumer group at partition of topic
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> group: Str(my-consumer-group)
+     -> topic: Str(my-topic)
+     -> partition: Int(0)
+StartTimestamp: 2024-05-20 17:56:11.599599 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.663286 +0000 UTC
+Value: 6
+Metric #4
+Descriptor:
+     -> Name: kafka.consumer_group.offset_sum
+     -> Description: Sum of consumer group offset across partitions of topic
+     -> Unit: 1
+     -> DataType: Gauge
+NumberDataPoints #0
+Data point attributes:
+     -> group: Str(my-consumer-group)
+     -> topic: Str(my-topic)
+StartTimestamp: 2024-05-20 17:56:11.599599 +0000 UTC
+Timestamp: 2024-05-20 17:56:12.663286 +0000 UTC
+Value: 6
+	{"kind": "exporter", "data_type": "metrics", "name": "debug"}
