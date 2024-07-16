@@ -16,76 +16,150 @@ Name: otlp.exporter.exported
 Name: otlp.exporter.seen
 Name: processedLogs
 Name: queueSize
-Name: kafka.consumer.last_poll_seconds_ago
-Name: kafka.consumer.network_io_rate
-Name: kafka.consumer.commit_latency_max
-Name: kafka.consumer.network_io_total
-Name: kafka.consumer.failed_authentication_total
-Name: kafka.consumer.outgoing_byte_total
-Name: kafka.consumer.failed_reauthentication_total
-Name: kafka.consumer.io_time_ns_total
-Name: kafka.consumer.incoming_byte_rate
-Name: kafka.consumer.fetch_latency_avg
-Name: kafka.consumer.last_heartbeat_seconds_ago
-Name: kafka.consumer.committed_time_ns_total
-Name: kafka.consumer.request_size_max
-Name: kafka.consumer.request_rate
-Name: kafka.consumer.records_lead
-Name: kafka.consumer.records_consumed_total
-Name: kafka.consumer.fetch_latency_max
-Name: kafka.consumer.fetch_throttle_time_max
-Name: kafka.consumer.commit_latency_avg
-Name: kafka.consumer.failed_reauthentication_rate
-Name: kafka.consumer.connection_close_total
-Name: kafka.consumer.connection_count
-Name: kafka.consumer.iotime_total
-Name: kafka.consumer.fetch_throttle_time_avg
-Name: kafka.consumer.connection_creation_total
-Name: kafka.consumer.rebalance_latency_total
-Name: kafka.consumer.request_size_avg
-Name: kafka.consumer.commit_sync_time_ns_total
-Name: kafka.consumer.sync_rate
-Name: kafka.consumer.io_time_ns_avg
-Name: kafka.consumer.response_total
-Name: kafka.consumer.commit_rate
-Name: kafka.consumer.last_rebalance_seconds_ago
-Name: kafka.consumer.successful_authentication_rate
-Name: kafka.consumer.assigned_partitions
-Name: kafka.consumer.heartbeat_response_time_max
-Name: kafka.consumer.heartbeat_rate
-Name: kafka.consumer.poll_idle_ratio_avg
-Name: kafka.consumer.connection_close_rate
-Name: kafka.consumer.time_between_poll_max
-Name: kafka.consumer.fetch_total
-Name: kafka.consumer.join_rate
-Name: kafka.consumer.records_lag
-Name: kafka.consumer.join_total
-Name: kafka.consumer.successful_authentication_total
-Name: kafka.consumer.rebalance_rate_per_hour
-Name: kafka.consumer.io_wait_time_ns_total
-Name: kafka.consumer.response_rate
-Name: kafka.consumer.bytes_consumed_total
-Name: kafka.consumer.failed_rebalance_rate_per_hour
-Name: kafka.consumer.connection_creation_rate
-Name: kafka.consumer.sync_total
-Name: kafka.consumer.successful_authentication_no_reauth_total
-Name: kafka.consumer.io_wait_ratio
-Name: kafka.consumer.failed_rebalance_total
-Name: kafka.consumer.time_between_poll_avg
-Name: kafka.consumer.failed_authentication_rate
-Name: kafka.consumer.fetch_rate
-Name: kafka.consumer.rebalance_total
-Name: kafka.consumer.heartbeat_total
-Name: kafka.consumer.commit_total
-Name: kafka.consumer.select_rate
-Name: kafka.consumer.successful_reauthentication_rate
-Name: kafka.consumer.io_ratio
-Name: kafka.consumer.outgoing_byte_rate
-Name: kafka.consumer.records_consumed_rate
-Name: kafka.consumer.incoming_byte_total
-Name: kafka.consumer.bytes_consumed_rate
-Name: kafka.consumer.successful_reauthentication_total
-Name: kafka.consumer.request_total
-Name: kafka.consumer.io_wait_time_ns_avg
-Name: kafka.consumer.select_total
-Name: kafka.consumer.io_waittime_total
+"kafka.consumer.commit_latency_avg",
+"kafka.consumer.commit_latency_max",
+"kafka.consumer.commit_rate",
+"kafka.consumer.commit_total",
+"kafka.consumer.failed_rebalance_rate_per_hour",
+"kafka.consumer.failed_rebalance_total",
+"kafka.consumer.heartbeat_rate",
+"kafka.consumer.heartbeat_response_time_max",
+"kafka.consumer.heartbeat_total",
+"kafka.consumer.join_rate",
+"kafka.consumer.join_time_avg",
+"kafka.consumer.join_time_max",
+"kafka.consumer.join_total",
+"kafka.consumer.last_heartbeat_seconds_ago",
+"kafka.consumer.last_rebalance_seconds_ago",
+"kafka.consumer.rebalance_latency_avg",
+"kafka.consumer.rebalance_latency_max",
+"kafka.consumer.rebalance_latency_total",
+"kafka.consumer.rebalance_rate_per_hour",
+"kafka.consumer.rebalance_total",
+"kafka.consumer.sync_rate",
+"kafka.consumer.sync_time_avg",
+"kafka.consumer.sync_time_max",
+"kafka.consumer.sync_total",
+"kafka.consumer.bytes_consumed_rate",
+"kafka.consumer.bytes_consumed_total",
+"kafka.consumer.fetch_latency_avg",
+"kafka.consumer.fetch_latency_max",
+"kafka.consumer.fetch_rate",
+"kafka.consumer.fetch_size_avg",
+"kafka.consumer.fetch_size_max",
+"kafka.consumer.fetch_throttle_time_avg",
+"kafka.consumer.fetch_throttle_time_max",
+"kafka.consumer.fetch_total",
+"kafka.consumer.records_consumed_rate",
+"kafka.consumer.records_consumed_total",
+"kafka.consumer.records_lag",
+"kafka.consumer.records_lag_avg",
+"kafka.consumer.records_lag_max",
+"kafka.consumer.records_lead",
+"kafka.consumer.records_lead_avg",
+"kafka.consumer.records_lead_min",
+"kafka.consumer.records_per_request_avg",
+"kafka.consumer.connection_close_rate",
+"kafka.consumer.connection_close_total",
+"kafka.consumer.connection_count",
+"kafka.consumer.connection_creation_rate",
+"kafka.consumer.connection_creation_total",
+"kafka.consumer.failed_authentication_rate",
+"kafka.consumer.failed_authentication_total",
+"kafka.consumer.failed_reauthentication_rate",
+"kafka.consumer.failed_reauthentication_total",
+"kafka.consumer.incoming_byte_rate",
+"kafka.consumer.incoming_byte_total",
+"kafka.consumer.io_ratio",
+"kafka.consumer.io_time_ns_avg",
+"kafka.consumer.io_wait_ratio",
+"kafka.consumer.io_wait_time_ns_avg",
+"kafka.consumer.io_waittime_total",
+"kafka.consumer.iotime_total",
+"kafka.consumer.last_poll_seconds_ago",
+"kafka.consumer.network_io_rate",
+"kafka.consumer.network_io_total",
+"kafka.consumer.outgoing_byte_rate",
+"kafka.consumer.outgoing_byte_total",
+"kafka.consumer.poll_idle_ratio_avg",
+"kafka.consumer.request_rate",
+"kafka.consumer.request_size_avg",
+"kafka.consumer.request_size_max",
+"kafka.consumer.request_total",
+"kafka.consumer.response_rate",
+"kafka.consumer.response_total",
+"kafka.consumer.select_rate",
+"kafka.consumer.select_total",
+"kafka.consumer.successful_authentication_no_reauth_total",
+"kafka.consumer.successful_authentication_rate",
+"kafka.consumer.successful_authentication_total",
+"kafka.consumer.successful_reauthentication_rate",
+"kafka.consumer.successful_reauthentication_total",
+"kafka.consumer.time_between_poll_avg",
+"kafka.consumer.time_between_poll_max",
+"kafka.producer.batch_size_avg",
+"kafka.producer.batch_size_max",
+"kafka.producer.batch_split_rate",
+"kafka.producer.batch_split_total",
+"kafka.producer.buffer_available_bytes",
+"kafka.producer.buffer_exhausted_rate",
+"kafka.producer.buffer_exhausted_total",
+"kafka.producer.buffer_total_bytes",
+"kafka.producer.bufferpool_wait_ratio",
+"kafka.producer.bufferpool_wait_time_total",
+"kafka.producer.compression_rate_avg",
+"kafka.producer.connection_close_rate",
+"kafka.producer.connection_close_total",
+"kafka.producer.connection_count",
+"kafka.producer.connection_creation_rate",
+"kafka.producer.connection_creation_total",
+"kafka.producer.failed_authentication_rate",
+"kafka.producer.failed_authentication_total",
+"kafka.producer.failed_reauthentication_rate",
+"kafka.producer.failed_reauthentication_total",
+"kafka.producer.incoming_byte_rate",
+"kafka.producer.incoming_byte_total",
+"kafka.producer.io_ratio",
+"kafka.producer.io_time_ns_avg",
+"kafka.producer.io_wait_ratio",
+"kafka.producer.io_wait_time_ns_avg",
+"kafka.producer.io_waittime_total",
+"kafka.producer.iotime_total",
+"kafka.producer.metadata_age",
+"kafka.producer.network_io_rate",
+"kafka.producer.network_io_total",
+"kafka.producer.outgoing_byte_rate",
+"kafka.producer.outgoing_byte_total",
+"kafka.producer.produce_throttle_time_avg",
+"kafka.producer.produce_throttle_time_max",
+"kafka.producer.record_error_rate",
+"kafka.producer.record_error_total",
+"kafka.producer.record_queue_time_avg",
+"kafka.producer.record_queue_time_max",
+"kafka.producer.record_retry_rate",
+"kafka.producer.record_retry_total",
+"kafka.producer.record_send_rate",
+"kafka.producer.record_send_total",
+"kafka.producer.record_size_avg",
+"kafka.producer.record_size_max",
+"kafka.producer.records_per_request_avg",
+"kafka.producer.request_latency_avg",
+"kafka.producer.request_latency_max",
+"kafka.producer.request_rate",
+"kafka.producer.request_size_avg",
+"kafka.producer.request_size_max",
+"kafka.producer.request_total",
+"kafka.producer.requests_in_flight",
+"kafka.producer.response_rate",
+"kafka.producer.response_total",
+"kafka.producer.select_rate",
+"kafka.producer.select_total",
+"kafka.producer.successful_authentication_no_reauth_total",
+"kafka.producer.successful_authentication_rate",
+"kafka.producer.successful_authentication_total",
+"kafka.producer.successful_reauthentication_rate",
+"kafka.producer.successful_reauthentication_total",
+"kafka.producer.waiting_threads",
+"kafka.producer.byte_rate",
+"kafka.producer.byte_total",
+"kafka.producer.compression_rate"
