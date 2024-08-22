@@ -39,11 +39,9 @@ receivers:
 exporters:
   otlp:
     # configure the grpc endpoint for signoz otel collector
-    endpoint: "ingest.eu.signoz.cloud:443"
+    endpoint: "127.0.0.1:65118"
     tls:
-      insecure: false
-    headers:
-         "signoz-access-token": "XKaJESNxI9bCEkQkuvXLt4qukc8gcC5l-3VZ"
+      insecure: true
   debug:
     verbosity: detailed
 
@@ -56,5 +54,5 @@ service:
       receivers: [otlp]
       exporters: [otlp]
     metrics:
-      receivers: [otlp, jmx, kafkametrics]
+      receivers: [otlp, kafkametrics]
       exporters: [otlp, debug]

@@ -24,28 +24,29 @@ public abstract class BaseProducer {
     private static final String DEFAULT_BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String DEFAULT_TOPIC = "my-topic";
     private static final String DEFAULT_NUM_MESSAGES = "1";
-    private static final String DEFAULT_DELAY = "0";
+    private static final String DEFAULT_DELAY = "100";
 
     private static final Logger log = LogManager.getLogger(BaseProducer.class);
 
     protected String bootstrapServers;
     protected String topic;
-    protected String producerkey;
+    protected String producerKey;
     protected int numMessages;
     protected long delay;
     protected Producer<String, String> producer;
 
     public void run() {
         try {
-            for (int i = 0; i < this.numMessages; i++) {
-                String message = "my-value-" + i;
-                ProducerRecord<String, String> record = new ProducerRecord<>(this.topic, this.producerkey, message);
+            int messageCount = 0;
+            while (true) { // Infinite loop to send messages periodically
+                String message = "my-value-" + messageCount++;
+                ProducerRecord<String, String> record = new ProducerRecord<>(this.topic, this.producerKey, message);
                 this.producer.send(record);
                 log.info("Message [{}] sent to topic [{}]", message, this.topic);
                 Thread.sleep(this.delay);
             }
         } catch (InterruptedException e) {
-            // Do nothing
+            log.error("Producer was interrupted", e);
         } finally {
             this.producer.close();
         }
@@ -54,7 +55,7 @@ public abstract class BaseProducer {
     public void loadConfiguration(Map<String, String> map) {
         this.bootstrapServers = map.getOrDefault(BOOTSTRAP_SERVERS_ENV_VAR, DEFAULT_BOOTSTRAP_SERVERS);
         this.topic = map.getOrDefault(TOPIC_ENV_VAR, DEFAULT_TOPIC);
-        this.producerkey = map.getOrDefault(PARTITION_KEY_ENV_VAR, PARTITION_KEY);
+        this.producerKey = map.getOrDefault(PARTITION_KEY_ENV_VAR, PARTITION_KEY);
         this.numMessages = Integer.parseInt(map.getOrDefault(NUM_MESSAGES_ENV_VAR, DEFAULT_NUM_MESSAGES));
         this.delay = Long.parseLong(map.getOrDefault(DELAY_ENV_VAR, DEFAULT_DELAY));
     }

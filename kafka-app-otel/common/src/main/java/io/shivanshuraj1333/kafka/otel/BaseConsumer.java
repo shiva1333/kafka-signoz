@@ -65,7 +65,6 @@ public class BaseConsumer {
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(CommonClientConfigs.GROUP_ID_CONFIG, this.consumerGroup);
         props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        props.setProperty
         return props;
     }
 

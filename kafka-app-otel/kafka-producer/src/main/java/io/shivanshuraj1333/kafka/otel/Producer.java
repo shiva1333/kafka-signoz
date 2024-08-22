@@ -10,10 +10,17 @@ public class Producer extends BaseProducer {
         Properties props = producer.loadKafkaProducerProperties();
         producer.createKafkaProducer(props);
 
-        Thread producerThread = new Thread(() -> producer.run());
+        Thread producerThread = new Thread(producer::run);
         producerThread.start();
 
-        Thread.sleep(5000);
-        producerThread.join();
+        // Let the producer run indefinitely or for a fixed time before stopping.
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                producerThread.interrupt();
+                producerThread.join();
+            } catch (InterruptedException e) {
+                // Handle exception
+            }
+        }));
     }
 }
