@@ -3,11 +3,11 @@
 # Set environment variables
 export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
 export CONSUMER_GROUP= "cg1"
-export TOPIC= "topic1"
-export OTEL_SERVICE_NAME= "consumer-svc"
-export OTEL_TRACES_EXPORTER= "otlp"
-export OTEL_METRICS_EXPORTER= "none"
-export OTEL_LOGS_EXPORTER= "otlp"
+export TOPIC="topic1"
+export OTEL_SERVICE_NAME="consumer-svc"
+export OTEL_TRACES_EXPORTER="otlp"
+export OTEL_METRICS_EXPORTER="none"
+export OTEL_LOGS_EXPORTER="otlp"
 
 # Run the Java application
 java -javaagent:${PWD}/../opentelemetry-javagent/opentelemetry-javaagent.jar \
