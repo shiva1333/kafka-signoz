@@ -2,16 +2,16 @@
 
 # Set environment variables
 export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export CONSUMER_GROUP="cg4"
-export TOPIC="topic2"
+export CONSUMER_GROUP= "cg2"
+export TOPIC= "topic2"
+export OTEL_SERVICE_NAME= "consumer-svc3"
+export OTEL_TRACES_EXPORTER= "otlp"
+export OTEL_METRICS_EXPORTER= "otlp"
+export OTEL_LOGS_EXPORTER= "otlp"
 
 # Run the Java application
-java -javaagent:${PWD}/opentelemetry-javagent/opentelemetry-javaagent.jar \
-        -Dotel.service.name=consumer-svc \
-        -Dotel.traces.exporter=otlp \
-        -Dotel.metrics.exporter=otlp \
-        -Dotel.logs.exporter=otlp \
+java -javaagent:/Users/s/oss/kafka-opentelemetry-instrumentation/opentelemetry-javagent/opentelemetry-javaagent.jar \
         -Dotel.instrumentation.kafka.producer-propagation.enabled=true \
         -Dotel.instrumentation.kafka.experimental-span-attributes=true \
         -Dotel.instrumentation.kafka.metric-reporter.enabled=true \
-        -jar ${PWD}/kafka-app-otel/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar
+        -jar /Users/s/oss/kafka-opentelemetry-instrumentation/docker/consumer/kafka-consumer.jar

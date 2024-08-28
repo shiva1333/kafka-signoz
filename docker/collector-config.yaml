@@ -2,13 +2,21 @@ receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: localhost:4317
+        endpoint: 0.0.0.0:4317
       http:
-        endpoint: localhost:4318
+        endpoint: 0.0.0.0:4318
 
 exporters:
-  otlp:
-    endpoint: "127.0.0.1:65118"
+  otlp/s:
+    endpoint: "10.128.0.35:4317"
+    tls:
+      insecure: true
+  otlp/t:
+    endpoint: "10.128.0.36:4317"
+    tls:
+      insecure: true
+  otlp/d:
+    endpoint: "10.128.0.34:4317"
     tls:
       insecure: true
   debug:
@@ -17,11 +25,11 @@ exporters:
 service:
   pipelines:
     traces:
-      receivers: [otlp, debug]
-      exporters: [otlp, debug]
+      receivers: [otlp]
+      exporters: [otlp/s, otlp/d, otlp/t]
     logs:
       receivers: [otlp]
-      exporters: [otlp, debug]
+      exporters: [otlp/s, otlp/d, otlp/t]
     metrics:
       receivers: [otlp]
-      exporters: [otlp, debug]
+      exporters: [otlp/s, otlp/d, otlp/t]
