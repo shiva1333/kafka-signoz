@@ -1,12 +1,12 @@
 ## start kafka
 ```bash
 cd docker
-docker compose -f kafka.yaml up > /dev/null 2>&1 &
+sudo docker compose -f kafka.yaml up > /dev/null 2>&1 &
 ```
 ## collector sending data to signoz
 ```bash
 cd docker
-docker compose -f collector.yaml up > /dev/null 2>&1
+sudo docker compose -f collector.yaml up > /dev/null 2>&1
 ```
 
 ## metrics collector
@@ -18,7 +18,7 @@ cd collector
 ## start producer
 ```bash
 cd docker
-docker compose -f producer-consumer.yaml up > /dev/null 2>&1
+sudo docker compose -f producer-consumer.yaml up > /dev/null 2>&1
 ```
 
 ## start consumer
