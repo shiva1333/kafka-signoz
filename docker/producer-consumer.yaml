@@ -1,0 +1,146 @@
+services:
+  kafka-producer1:
+    image: shivanshu1333/kafka-producer:latest
+    container_name: producer1
+    environment:
+      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+      TOPIC: "topic1"
+      PARTITION_KEY: "key1"
+      DELAY: "10"
+      OTEL_SERVICE_NAME: "producer-svc1"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-producer2:
+#    image: shivanshu1333/kafka-producer:latest
+#    container_name: producer2
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      TOPIC: "topic1"
+#      PARTITION_KEY: "key1"
+#      DELAY: "5"
+#      OTEL_SERVICE_NAME: "producer-svc2"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-producer3:
+#    image: shivanshu1333/kafka-producer:latest
+#    container_name: producer3
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      TOPIC: "topic2"
+#      DELAY: "70"
+#      OTEL_SERVICE_NAME: "producer-svc2"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-producer4:
+#    image: shivanshu1333/kafka-producer:latest
+#    container_name: producer4
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      TOPIC: "topic2"
+#      DELAY: "50"
+#      OTEL_SERVICE_NAME: "producer-svc3"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-producer5:
+#    image: shivanshu1333/kafka-producer:latest
+#    container_name: producer5
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      TOPIC: "topic3"
+#      DELAY: "40"
+#      OTEL_SERVICE_NAME: "producer-svc3"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-producer6:
+#    image: shivanshu1333/kafka-producer:latest
+#    container_name: producer6
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      TOPIC: "topic3"
+#      DELAY: "30"
+#      OTEL_SERVICE_NAME: "producer-svc4"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+
+  kafka-consumer1:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: kafka-consumer1
+    environment:
+      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+      CONSUMER_GROUP: "cg1"
+      TOPIC: "topic1"
+      OTEL_SERVICE_NAME: "consumer-svc1"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+
+#  kafka-consumer2:
+#    image: shivanshu1333/kafka-consumer:latest
+#    container_name: kafka-consumer2
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      CONSUMER_GROUP: "cg1"
+#      TOPIC: "topic1"
+#      OTEL_SERVICE_NAME: "consumer-svc1"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-consumer3:
+#    image: shivanshu1333/kafka-consumer:latest
+#    container_name: kafka-consumer3
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      CONSUMER_GROUP: "cg2"
+#      TOPIC: "topic2"
+#      OTEL_SERVICE_NAME: "consumer-svc2"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-consumer4:
+#    image: shivanshu1333/kafka-consumer:latest
+#    container_name: kafka-consumer4
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      CONSUMER_GROUP: "cg2"
+#      TOPIC: "topic2"
+#      OTEL_SERVICE_NAME: "consumer-svc3"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-consumer5:
+#    image: shivanshu1333/kafka-consumer:latest
+#    container_name: kafka-consumer5
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      CONSUMER_GROUP: "cg3"
+#      TOPIC: "topic3"
+#      OTEL_SERVICE_NAME: "consumer-svc3"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"
+#
+#  kafka-consumer6:
+#    image: shivanshu1333/kafka-consumer:latest
+#    container_name: kafka-consumer6
+#    environment:
+#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+#      CONSUMER_GROUP: "cg3"
+#      TOPIC: "topic3"
+#      OTEL_SERVICE_NAME: "consumer-svc3"
+#      OTEL_TRACES_EXPORTER: "otlp"
+#      OTEL_METRICS_EXPORTER: "otlp"
+#      OTEL_LOGS_EXPORTER: "otlp"

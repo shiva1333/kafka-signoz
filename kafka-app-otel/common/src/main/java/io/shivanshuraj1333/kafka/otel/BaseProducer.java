@@ -20,7 +20,6 @@ public abstract class BaseProducer {
     private static final String DELAY_ENV_VAR = "DELAY";
     private static final String PARTITION_KEY_ENV_VAR = "PARTITION_KEY";
     private static final String PARTITION_KEY = "my-key";
-
     private static final String DEFAULT_BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String DEFAULT_TOPIC = "my-topic";
     private static final String DEFAULT_NUM_MESSAGES = "1";
