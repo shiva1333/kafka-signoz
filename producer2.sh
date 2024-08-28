@@ -2,8 +2,8 @@
 
 # Set environment variables
 export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export TOPIC="topic1"
-export PARTITION_KEY="key1"
+export TOPIC="topic2"
+export PARTITION_KEY="key2"
 
 # Run the Java application
 java -javaagent:${PWD}/opentelemetry-javagent/opentelemetry-javaagent.jar \
