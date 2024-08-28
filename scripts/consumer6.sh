@@ -10,8 +10,8 @@ export OTEL_METRICS_EXPORTER= "none"
 export OTEL_LOGS_EXPORTER= "otlp"
 
 # Run the Java application
-java -javaagent:/Users/s/oss/kafka-opentelemetry-instrumentation/opentelemetry-javagent/opentelemetry-javaagent.jar \
+java -javaagent:${PWD}/../opentelemetry-javagent/opentelemetry-javaagent.jar \
         -Dotel.instrumentation.kafka.producer-propagation.enabled=true \
         -Dotel.instrumentation.kafka.experimental-span-attributes=true \
         -Dotel.instrumentation.kafka.metric-reporter.enabled=true \
-        -jar /Users/s/oss/kafka-opentelemetry-instrumentation/docker/consumer/kafka-consumer.jar
+        -jar ${PWD}/../docker/consumer/kafka-consumer.jar

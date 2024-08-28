@@ -89,7 +89,7 @@ The last section contains some Troubleshooting tips!!
   ```
   ```bash
   # open second terminal and consume the messages
-  bin/kafka-console-consumer.sh --topic topic1 --from-beginning --bootstrap-server localhost:9092
+  bin/kafka-console-consumer1.sh --topic topic1 --from-beginning --bootstrap-server localhost:9092
   > (receive the messages)
   ```
 ---
