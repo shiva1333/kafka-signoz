@@ -4,9 +4,30 @@ Soon, we will be introducing deep correlation and insights with producer and con
 
 ![kafka-otel-signoz](assets/kafka-otel-signoz.png)
 
-**Note:**
-1) This guide is a reference for a production-grade kafka monitoring and instrumentation, this repo is intended to familiarize you with the involved complexities.
-2) All the tools used are open source and are licensed under Apache and MIT license.
+### Quick Start using docker
+#### start kafka
+```bash
+# from docker directory, cd docker
+docker compose -f kafka.yaml up
+```
+#### collector sending data to signoz
+```bash
+# from docker directory, cd docker
+docker compose -f collector.yaml up
+```
+
+#### metrics collector
+```bash
+# from collector directory, cd collector
+./otelcol-contrib --config collector-contrib-config.yaml
+```
+
+#### start producer and consumers
+```bash
+# from docker directory, cd docker
+docker compose -f producer-consumer.yaml up 
+```
+
 ---
 ### Steps to follow (ready-to-use guide)
 We will follow the following steps:
@@ -139,7 +160,7 @@ The last section contains some Troubleshooting tips!!
            -Dotel.instrumentation.kafka.producer-propagation.enabled=true \
            -Dotel.instrumentation.kafka.experimental-span-attributes=true \
            -Dotel.instrumentation.kafka.metric-reporter.enabled=true \
-           -jar ${PWD}/kafka-app-otel/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar
+           -jar ${PWD}/kafka-app-otel/kafka-consumer/target/kafka-consumer.jar
    ```
 ---
 ### Step 4: SigNoz setup
@@ -167,9 +188,10 @@ e.g. if you're running the binary on your host machine, place it the root of the
 ./otelcol-contrib --config ${PWD}/collector/collector-contrib-config.yaml
 ```
 ---
-### Troubleshooting
-
----
 ### Contributing
 
 If you have some suggestions or want to improve the experience of the repo feel free to create an issue or open a pull request.
+
+**Note:**
+1) This guide is a reference for a production-grade kafka monitoring and instrumentation, this repo is intended to familiarize you with the involved complexities.
+2) All the tools used are open source and are licensed under Apache and MIT license.
