@@ -1,45 +1,43 @@
 receivers:
-  otlp:
-    protocols:
-      grpc:
-        # OTeL receiver endpoint (grpc)
-        endpoint: 127.0.0.1:4317
-      http:
-        # OTeL receiver endpoint (http)
-        endpoint: 127.0.0.1:4318
   kafkametrics:
     brokers:
-      # Kafka brokers endpoints
-      - 127.0.0.1:9092
-      - 127.0.0.1:9093
+      - localhost:9092
+      - localhost:9093
+      - localhost:9094
     protocol_version: 2.0.0
     scrapers:
       - brokers
       - topics
       - consumers
-  jmx:
-    # configure the path where you installed opentelemetry-jmx-metrics receiver
+  jmx/1:
+    # configure the path where you installed opentelemetry-jmx-metrics jar
     jar_path: ${PWD}/opentelemetry-jmx-metrics.jar
-    endpoint: service:jmx:rmi:///jndi/rmi://127.0.0.1:2020/jmxrmi
+    endpoint: service:jmx:rmi:///jndi/rmi://localhost:9991/jmxrmi
     target_system: jvm,kafka,kafka-consumer,kafka-producer
     collection_interval: 10s
     log_level: info
     resource_attributes:
       broker.name: broker1
   jmx/2:
-    # configure the path where you installed opentelemetry-jmx-metrics receiver
     jar_path: ${PWD}/opentelemetry-jmx-metrics.jar
-    endpoint: service:jmx:rmi:///jndi/rmi://127.0.0.1:2021/jmxrmi
+    endpoint: service:jmx:rmi:///jndi/rmi://localhost:9992/jmxrmi
     target_system: jvm,kafka,kafka-consumer,kafka-producer
     collection_interval: 10s
     log_level: info
     resource_attributes:
       broker.name: broker2
+  jmx/3:
+    jar_path: ${PWD}/opentelemetry-jmx-metrics.jar
+    endpoint: service:jmx:rmi:///jndi/rmi://localhost:9993/jmxrmi
+    target_system: jvm,kafka,kafka-consumer,kafka-producer
+    collection_interval: 10s
+    log_level: info
+    resource_attributes:
+      broker.name: broker3
 
 exporters:
   otlp:
-    # configure the grpc endpoint for signoz otel collector
-    endpoint: "127.0.0.1:65118"
+    endpoint: localhost:4317
     tls:
       insecure: true
   debug:
@@ -47,12 +45,6 @@ exporters:
 
 service:
   pipelines:
-    traces:
-      receivers: [otlp]
-      exporters: [otlp]
-    logs:
-      receivers: [otlp]
-      exporters: [otlp]
     metrics:
-      receivers: [otlp, kafkametrics]
-      exporters: [otlp, debug]
+      receivers: [kafkametrics, jmx/1, jmx/2, jmx/3]
+      exporters: [otlp]

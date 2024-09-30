@@ -18,9 +18,8 @@ public class BaseConsumer {
     private static final String BOOTSTRAP_SERVERS_ENV_VAR = "BOOTSTRAP_SERVERS";
     private static final String CONSUMER_GROUP_ENV_VAR = "CONSUMER_GROUP";
     private static final String TOPIC_ENV_VAR = "TOPIC";
-
     private static final String DEFAULT_BOOTSTRAP_SERVERS = "localhost:9092";
-    private static final String DEFAULT_TOPIC = "my-topic";
+    private static final String DEFAULT_TOPIC = "topic1";
     private static final String DEFAULT_CONSUMER_GROUP = "my-consumer-group";
 
     private static final Logger log = LogManager.getLogger(BaseConsumer.class);
