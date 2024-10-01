@@ -22,7 +22,7 @@ public class BaseConsumer {
     private static final String DEFAULT_TOPIC = "topic1";
     private static final String DEFAULT_CONSUMER_GROUP = "my-consumer-group";
 
-    private static final Logger log = LogManager.getLogger(BaseConsumer.class);
+    public static final Logger log = LogManager.getLogger(BaseConsumer.class);
 
     protected String bootstrapServers;
     protected String consumerGroup;
@@ -32,24 +32,52 @@ public class BaseConsumer {
     protected AtomicBoolean running = new AtomicBoolean(true);
 
     public void run(CountDownLatch latch) {
-        log.info("Subscribe to topic [{}]", this.topic);
+        log.info("Subscribing to topic [{}]", this.topic);
         this.consumer.subscribe(List.of(this.topic));
+
         try {
-            log.info("Polling ...");
+            log.info("Polling for records...");
             while (this.running.get()) {
-                ConsumerRecords<String, String> records = this.consumer.poll(Duration.ofMillis(100));
-                for (ConsumerRecord<String, String> record : records) {
-                    log.info("Received message key = [{}], value = [{}], offset = [{}]", record.key(), record.value(), record.offset());
+                try {
+                    ConsumerRecords<String, String> records = this.consumer.poll(Duration.ofMillis(10000));
+
+                    for (ConsumerRecord<String, String> record : records) {
+                        log.info("Received message key = [{}], value = [{}], offset = [{}]", record.key(), record.value(), record.offset());
+
+                        try {
+                            this.consumer.commitSync();
+                            log.info("Successfully committed offset for record key = [{}]", record.key());
+                        } catch (CommitFailedException cfe) {
+                            log.error("CommitFailedException while committing offset for record key = [{}].", record.key(), cfe);
+                        }
+                    }
+                } catch (WakeupException we) {
+                    if (running.get()) {
+                        log.warn("Received WakeupException while polling, but consumer is not shutting down.", we);
+                        throw we;
+                    }
+                    log.info("Consumer shutdown initiated, WakeupException caught and handled.");
+                } catch (Exception e) {
+                    log.error("Unexpected error during polling. Consumer will continue polling.", e);
                 }
             }
-        } catch (WakeupException we) {
-            // Ignore exception if closing
-            if (running.get()) throw we;
+        } catch (Exception e) {
+            log.error("Error in Kafka consumer run method, shutting down consumer.", e);
         } finally {
-            this.consumer.close();
-            latch.countDown();
+            try {
+                log.info("Closing Kafka consumer...");
+                this.consumer.unsubscribe();
+                this.consumer.close();
+                log.info("Kafka consumer closed.");
+            } catch (Exception e) {
+                log.error("Error occurred while closing Kafka consumer.", e);
+            } finally {
+                latch.countDown();
+                log.info("CountDownLatch decremented, consumer run method exiting.");
+            }
         }
     }
+
 
     public void loadConfiguration(Map<String, String> map) {
         this.bootstrapServers = map.getOrDefault(BOOTSTRAP_SERVERS_ENV_VAR, DEFAULT_BOOTSTRAP_SERVERS);
@@ -64,6 +92,12 @@ public class BaseConsumer {
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(CommonClientConfigs.GROUP_ID_CONFIG, this.consumerGroup);
         props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        props.setProperty(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
+        props.setProperty(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, "10000");
+        props.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "500");
+        props.setProperty(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "300000");
+
         return props;
     }
 
