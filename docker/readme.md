@@ -15,13 +15,13 @@ cd collector
 nohup ./otelcol-contrib --config collector-contrib-config.yaml > /dev/null 2>&1 & 
 ```
 
-## start producer
+## start producer and consumers
 ```bash
 cd docker
 nohup sudo docker compose -f producer-consumer.yaml up > /dev/null 2>&1 &
 ```
 
-## start consumer
+## (optional) start producer or consumer via script, this doesn't use the docker image
 ```bash
 cd scripts
 nohup ./consumer1.sh > /dev/null 2>&1 &

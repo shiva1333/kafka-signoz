@@ -1,5 +1,5 @@
 # Use an OpenJDK base image
-FROM openjdk:22-jdk-slim
+FROM openjdk:22-slim-bullseye
 
 # Create a directory for the application
 RUN mkdir -p /opt

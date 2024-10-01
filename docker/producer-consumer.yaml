@@ -11,9 +11,9 @@ services:
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_LOGS_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 
   kafka-producer2:
     image: shivanshu1333/kafka-producer:latest
@@ -27,9 +27,9 @@ services:
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_LOGS_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 
   kafka-producer3:
     image: shivanshu1333/kafka-producer:latest
@@ -42,9 +42,9 @@ services:
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_LOGS_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 
   kafka-producer4:
     image: shivanshu1333/kafka-producer:latest
@@ -57,9 +57,9 @@ services:
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_LOGS_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 
   kafka-producer5:
     image: shivanshu1333/kafka-producer:latest
@@ -72,9 +72,9 @@ services:
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_LOGS_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 
   kafka-producer6:
     image: shivanshu1333/kafka-producer:latest
@@ -87,96 +87,96 @@ services:
       OTEL_TRACES_EXPORTER: "otlp"
       OTEL_METRICS_EXPORTER: "otlp"
       OTEL_LOGS_EXPORTER: "otlp"
-      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 
-#  kafka-consumer1:
-#    image: shivanshu1333/kafka-consumer:latest
-#    container_name: kafka-consumer1
-#    environment:
-#      BOOTSTRAP_SERVERS: "broker1:9092,broker2:19093,broker3:19094"
-#      CONSUMER_GROUP: "cg1"
-#      TOPIC: "topic1"
-#      OTEL_SERVICE_NAME: "consumer-svc"
-#      OTEL_TRACES_EXPORTER: "otlp"
-#      OTEL_METRICS_EXPORTER: "none"
-#      OTEL_LOGS_EXPORTER: "otlp"
-#      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-#      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+  kafka-consumer1:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: consumer1
+    environment:
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "cg1"
+      TOPIC: "topic1"
+      OTEL_SERVICE_NAME: "consumer-svc"
+      OTEL_TRACES_EXPORTER: "none"
+      OTEL_METRICS_EXPORTER: "none"
+      OTEL_LOGS_EXPORTER: "none"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
+
+  kafka-consumer2:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: consumer2
+    environment:
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "cg1"
+      TOPIC: "topic1"
+      OTEL_SERVICE_NAME: "consumer-svc1"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 #
-#  kafka-consumer2:
-#    image: shivanshu1333/kafka-consumer:latest
-#    container_name: kafka-consumer2
-#    environment:
-#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-#      CONSUMER_GROUP: "cg1"
-#      TOPIC: "topic1"
-#      OTEL_SERVICE_NAME: "consumer-svc1"
-#      OTEL_TRACES_EXPORTER: "otlp"
-#      OTEL_METRICS_EXPORTER: "otlp"
-#      OTEL_LOGS_EXPORTER: "otlp"
-#      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-#      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
-##
-#  kafka-consumer3:
-#    image: shivanshu1333/kafka-consumer:latest
-#    container_name: kafka-consumer3
-#    environment:
-#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-#      CONSUMER_GROUP: "cg2"
-#      TOPIC: "topic2"
-#      OTEL_SERVICE_NAME: "consumer-svc2"
-#      OTEL_TRACES_EXPORTER: "otlp"
-#      OTEL_METRICS_EXPORTER: "otlp"
-#      OTEL_LOGS_EXPORTER: "otlp"
-#      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-#      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
-##
-#  kafka-consumer4:
-#    image: shivanshu1333/kafka-consumer:latest
-#    container_name: kafka-consumer4
-#    environment:
-#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-#      CONSUMER_GROUP: "cg2"
-#      TOPIC: "topic2"
-#      OTEL_SERVICE_NAME: "consumer-svc3"
-#      OTEL_TRACES_EXPORTER: "otlp"
-#      OTEL_METRICS_EXPORTER: "otlp"
-#      OTEL_LOGS_EXPORTER: "otlp"
-#      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-#      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+  kafka-consumer3:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: consumer3
+    environment:
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "cg2"
+      TOPIC: "topic2"
+      OTEL_SERVICE_NAME: "consumer-svc2"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
 #
-#  kafka-consumer5:
-#    image: shivanshu1333/kafka-consumer:latest
-#    container_name: kafka-consumer5
-#    environment:
-#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-#      CONSUMER_GROUP: "cg3"
-#      TOPIC: "topic3"
-#      OTEL_SERVICE_NAME: "consumer-svc3"
-#      OTEL_TRACES_EXPORTER: "otlp"
-#      OTEL_METRICS_EXPORTER: "otlp"
-#      OTEL_LOGS_EXPORTER: "otlp"
-#      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-#      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
-#
-#  kafka-consumer6:
-#    image: shivanshu1333/kafka-consumer:latest
-#    container_name: kafka-consumer6
-#    environment:
-#      BOOTSTRAP_SERVERS: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-#      CONSUMER_GROUP: "cg3"
-#      TOPIC: "topic3"
-#      OTEL_SERVICE_NAME: "consumer-svc3"
-#      OTEL_TRACES_EXPORTER: "otlp"
-#      OTEL_METRICS_EXPORTER: "otlp"
-#      OTEL_LOGS_EXPORTER: "otlp"
-#      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://otel-collector:4318/v1/logs"
-#      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://otel-collector:4318/v1/metrics"
-#      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otel-collector:4318/v1/traces"
+  kafka-consumer4:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: consumer4
+    environment:
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "cg2"
+      TOPIC: "topic2"
+      OTEL_SERVICE_NAME: "consumer-svc3"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
+
+  kafka-consumer5:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: consumer5
+    environment:
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "cg3"
+      TOPIC: "topic3"
+      OTEL_SERVICE_NAME: "consumer-svc3"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"
+
+  kafka-consumer6:
+    image: shivanshu1333/kafka-consumer:latest
+    container_name: consumer6
+    environment:
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "cg3"
+      TOPIC: "topic3"
+      OTEL_SERVICE_NAME: "consumer-svc3"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: "http://host.docker.internal:4318/v1/logs"
+      OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: "http://host.docker.internal:4318/v1/metrics"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://host.docker.internal:4318/v1/traces"

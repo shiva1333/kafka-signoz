@@ -1,4 +1,12 @@
 receivers:
+  otlp:
+    protocols:
+      grpc:
+        # OTeL receiver endpoint (grpc)
+        endpoint: 127.0.0.1:4317
+      http:
+        # OTeL receiver endpoint (http)
+        endpoint: 127.0.0.1:4318
   kafkametrics:
     brokers:
       - localhost:9092
@@ -37,7 +45,7 @@ receivers:
 
 exporters:
   otlp:
-    endpoint: localhost:4317
+    endpoint: localhost:51375
     tls:
       insecure: true
   debug:
@@ -46,5 +54,11 @@ exporters:
 service:
   pipelines:
     metrics:
-      receivers: [kafkametrics, jmx/1, jmx/2, jmx/3]
+      receivers: [kafkametrics, jmx/1, jmx/2, jmx/3, otlp]
+      exporters: [otlp]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp, debug]
+    logs:
+      receivers: [otlp]
       exporters: [otlp]
