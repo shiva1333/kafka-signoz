@@ -11,7 +11,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BaseConsumer {
@@ -31,7 +30,7 @@ public class BaseConsumer {
 
     protected AtomicBoolean running = new AtomicBoolean(true);
 
-    public void run(CountDownLatch latch) {
+    public void run() {
         log.info("Subscribing to topic [{}]", this.topic);
         this.consumer.subscribe(List.of(this.topic));
 
@@ -39,11 +38,13 @@ public class BaseConsumer {
             log.info("Polling for records...");
             while (this.running.get()) {
                 try {
+                    // Poll for records with a timeout duration
                     ConsumerRecords<String, String> records = this.consumer.poll(Duration.ofMillis(10000));
 
                     for (ConsumerRecord<String, String> record : records) {
                         log.info("Received message key = [{}], value = [{}], offset = [{}]", record.key(), record.value(), record.offset());
 
+                        // Commit offsets after processing each record
                         try {
                             this.consumer.commitSync();
                             log.info("Successfully committed offset for record key = [{}]", record.key());
@@ -71,13 +72,9 @@ public class BaseConsumer {
                 log.info("Kafka consumer closed.");
             } catch (Exception e) {
                 log.error("Error occurred while closing Kafka consumer.", e);
-            } finally {
-                latch.countDown();
-                log.info("CountDownLatch decremented, consumer run method exiting.");
             }
         }
     }
-
 
     public void loadConfiguration(Map<String, String> map) {
         this.bootstrapServers = map.getOrDefault(BOOTSTRAP_SERVERS_ENV_VAR, DEFAULT_BOOTSTRAP_SERVERS);
