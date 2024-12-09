@@ -1,0 +1,13 @@
+services:
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    volumes:
+      - ./otel-collector-config.yaml:/otel-config.yaml  # Mount the config file
+    ports:
+      - "8888:8888"    # Health check and metrics endpoint
+      - "4317:4317"    # OTLP gRPC endpoint
+      - "4318:4318"  # OTLP HTTP endpoint
+    command:
+      - --config=/otel-config.yaml
+

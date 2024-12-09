@@ -1,0 +1,52 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  kafkametrics:
+    brokers:
+      - 'broker1:19092'
+      - 'broker2:19093'
+      - 'broker3:19094'
+    protocol_version: 2.0.0
+    scrapers:
+      - brokers
+      - topics
+      - consumers
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: 'kafka-brokers'
+          scrape_interval: 5s
+          static_configs:
+            - targets:
+                - 'broker1:9994'  # JMX Exporter metrics for broker1
+                - 'broker2:9995'  # JMX Exporter metrics for broker2
+                - 'broker3:9996'  # JMX Exporter metrics for broker3
+
+processors:
+  batch:
+    timeout: 10s
+
+exporters:
+  debug:
+    verbosity: detailed
+  otlp:
+    endpoint: "host.docker.internal:61332"
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp, prometheus, kafkametrics]
+      exporters: [otlp]
+    logs:
+      receivers: [otlp]
+      exporters: [otlp]
+    traces:
+      receivers: [otlp]
+      exporters: [otlp]
+
