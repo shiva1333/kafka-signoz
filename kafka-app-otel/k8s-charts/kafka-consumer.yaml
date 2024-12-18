@@ -77,9 +77,9 @@ spec:
                 - name: OTEL_LOGS_EXPORTER
                   value: "otlp"
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: "http://otel-collector:4317"
+                  value: "http://otel-collector:4318"
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
-                  value: "grpc"
+                  value: "http/protobuf"
                 - name: AUTO_OFFSET_RESET
                   value: "earliest"
                 - name: ENABLE_AUTO_COMMIT
@@ -134,9 +134,9 @@ spec:
                 - name: OTEL_LOGS_EXPORTER
                   value: "otlp"
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: "http://otel-collector:4317"
+                  value: "http://otel-collector:4318"
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
-                  value: "grpc"
+                  value: "http/protobuf"
                 - name: AUTO_OFFSET_RESET
                   value: "earliest"
                 - name: ENABLE_AUTO_COMMIT
@@ -192,9 +192,9 @@ spec:
                 - name: OTEL_LOGS_EXPORTER
                   value: "otlp"
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: "http://otel-collector:4317"
+                  value: "http://otel-collector:4318"
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
-                  value: "grpc"
+                  value: "http/protobuf"
                 - name: AUTO_OFFSET_RESET
                   value: "earliest"
                 - name: ENABLE_AUTO_COMMIT
@@ -249,9 +249,9 @@ spec:
                 - name: OTEL_LOGS_EXPORTER
                   value: "otlp"
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: "http://otel-collector:4317"
+                  value: "http://otel-collector:4318"
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
-                  value: "grpc"
+                  value: "http/protobuf"
                 - name: AUTO_OFFSET_RESET
                   value: "earliest"
                 - name: ENABLE_AUTO_COMMIT
@@ -307,9 +307,9 @@ spec:
                 - name: OTEL_LOGS_EXPORTER
                   value: "otlp"
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: "http://otel-collector:4317"
+                  value: "http://otel-collector:4318"
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
-                  value: "grpc"
+                  value: "http/protobuf"
                 - name: AUTO_OFFSET_RESET
                   value: "earliest"
                 - name: ENABLE_AUTO_COMMIT
@@ -364,9 +364,9 @@ spec:
                 - name: OTEL_LOGS_EXPORTER
                   value: "otlp"
                 - name: OTEL_EXPORTER_OTLP_ENDPOINT
-                  value: "http://otel-collector:4317"
+                  value: "http://otel-collector:4318"
                 - name: OTEL_EXPORTER_OTLP_PROTOCOL
-                  value: "grpc"
+                  value: "http/protobuf"
                 - name: AUTO_OFFSET_RESET
                   value: "earliest"
                 - name: ENABLE_AUTO_COMMIT

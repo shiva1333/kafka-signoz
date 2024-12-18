@@ -44,9 +44,9 @@ spec:
             - name: OTEL_LOGS_EXPORTER
               value: "otlp"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://otel-collector:4317"
+              value: "http://otel-collector:4318"
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
-              value: "grpc"
+              value: "http/protobuf"
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: "service.name=kafka-producer-1,deployment.environment=dev"
           resources:
@@ -109,9 +109,9 @@ spec:
             - name: OTEL_LOGS_EXPORTER
               value: "otlp"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://otel-collector:4317"
+              value: "http://otel-collector:4318"
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
-              value: "grpc"
+              value: "http/protobuf"
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: "service.name=kafka-producer-2,deployment.environment=dev"
           resources:
@@ -174,9 +174,9 @@ spec:
             - name: OTEL_LOGS_EXPORTER
               value: "otlp"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
-              value: "http://otel-collector:4317"
+              value: "http://otel-collector:4318"
             - name: OTEL_EXPORTER_OTLP_PROTOCOL
-              value: "grpc"
+              value: "http/protobuf"
             - name: OTEL_RESOURCE_ATTRIBUTES
               value: "service.name=kafka-producer-3,deployment.environment=dev"
           resources:

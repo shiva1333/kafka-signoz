@@ -24,6 +24,32 @@ data:
           - topics
           - consumers
         collection_interval: 5s
+        
+      jmx/1:
+        # configure the path where you installed opentelemetry-jmx-metrics jar
+        jar_path: /opt/opentelemetry-java-contrib-jmx-metrics.jar
+        endpoint: service:jmx:rmi:///jndi/rmi://kafka-broker-0.kafka-broker:9991/jmxrmi
+        target_system: jvm,kafka,kafka-consumer,kafka-producer
+        collection_interval: 10s
+        log_level: info
+        resource_attributes:
+          broker.name: broker1
+      jmx/2:
+        jar_path: /opt/opentelemetry-java-contrib-jmx-metrics.jar
+        endpoint: service:jmx:rmi:///jndi/rmi://kafka-broker-1.kafka-broker:9991/jmxrmi
+        target_system: jvm,kafka,kafka-consumer,kafka-producer
+        collection_interval: 10s
+        log_level: info
+        resource_attributes:
+          broker.name: broker2
+      jmx/3:
+        jar_path: /opt/opentelemetry-java-contrib-jmx-metrics.jar
+        endpoint: service:jmx:rmi:///jndi/rmi://kafka-broker-2.kafka-broker:9991/jmxrmi
+        target_system: jvm,kafka,kafka-consumer,kafka-producer
+        collection_interval: 10s
+        log_level: info
+        resource_attributes:
+          broker.name: broker3
 
     processors:
       batch:
@@ -31,7 +57,7 @@ data:
         send_batch_size: 1024
 
     exporters:
-      debug: {}
+      debug:
       otlp/local:
         endpoint: "my-release-signoz-otel-collector.platform.svc.cluster.local:4317"
         tls:
@@ -40,17 +66,17 @@ data:
     service:
       pipelines:
         metrics:
-          receivers: [otlp, kafkametrics]
+          receivers: [otlp, kafkametrics, jmx/1, jmx/2, jmx/3]
           processors: [batch]
-          exporters: [debug, otlp, otlp/local]
+          exporters: [debug, otlp/local]
         traces:
           receivers: [otlp]
           processors: [batch]
-          exporters: [debug, otlp, otlp/local]
+          exporters: [debug, otlp/local]
         logs:
           receivers: [otlp]
           processors: [batch]
-          exporters: [debug, otlp, otlp/local]
+          exporters: [debug, otlp/local]
 
 ---
 apiVersion: apps/v1
@@ -70,7 +96,7 @@ spec:
     spec:
       containers:
         - name: otel-collector
-          image: otel/opentelemetry-collector-contrib:latest
+          image: quay.io/signalfx/splunk-otel-collector:0.115.0
           args:
             - "--config=/etc/otel-collector/config.yaml"
           volumeMounts:

@@ -91,6 +91,10 @@ spec:
               value: "50"
             - name: KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS
               value: "0"
+            - name: KAFKA_JMX_OPTS
+              value: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9991"
+            - name: JMX_PORT
+              value: "9991"
           command:
             - sh
             - -c
@@ -99,6 +103,7 @@ spec:
               export KAFKA_BROKER_ID=$BROKER_ID
               export KAFKA_ADVERTISED_LISTENERS="PLAINTEXT://${HOSTNAME}.kafka-broker:9092"
               export KAFKA_OPTS="${KAFKA_JMX_OPTS}"
+              export JMX_PORT="${JMX_PORT}"
               exec /etc/confluent/docker/run
 ---
 apiVersion: v1
