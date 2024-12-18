@@ -1,0 +1,347 @@
+services:
+  # Kafka Infrastructure
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - kafka-net
+
+  broker1:
+    image: confluentinc/cp-server:7.5.0
+    hostname: broker1
+    container_name: broker1
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:19092,EXTERNAL://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:19092,EXTERNAL://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9991"
+      JMX_PORT: 9991
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "3"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "3"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "2"
+      KAFKA_MIN_INSYNC_REPLICAS: "2"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9092:9092"
+      - "9991:9991"
+    networks:
+      - kafka-net
+
+  broker2:
+    image: confluentinc/cp-server:7.5.0
+    hostname: broker2
+    container_name: broker2
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:19093,EXTERNAL://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:19093,EXTERNAL://0.0.0.0:9093
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9992"
+      JMX_PORT: 9992
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    ports:
+      - "9093:9093"
+      - "9992:9992"
+    networks:
+      - kafka-net
+
+  broker3:
+    image: confluentinc/cp-server:7.5.0
+    hostname: broker3
+    container_name: broker3
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:19094,EXTERNAL://localhost:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:19094,EXTERNAL://0.0.0.0:9094
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9993"
+      JMX_PORT: 9993
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+    ports:
+      - "9094:9094"
+      - "9993:9993"
+    networks:
+      - kafka-net
+
+  init-kafka:
+    image: confluentinc/cp-server:7.5.0
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
+    command: >
+      bash -c "
+        echo 'Waiting for Kafka to be ready...'
+        sleep 30
+        
+        echo 'Creating topics...'
+        kafka-topics --create --if-not-exists --topic topic1 --partitions 3 --replication-factor 3 --bootstrap-server broker1:19092
+        
+        kafka-topics --create --if-not-exists --topic topic2 --partitions 3 --replication-factor 3 --bootstrap-server broker1:19092
+        
+        kafka-topics --create --if-not-exists --topic topic3 --partitions 3 --replication-factor 3 --bootstrap-server broker1:19092
+        
+        echo 'Topics created. Current topics:'
+        kafka-topics --list --bootstrap-server broker1:19092
+      "
+    networks:
+      - kafka-net
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ../otel-collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+    networks:
+      - kafka-net
+
+  # Producer Services with different patterns
+  kafka-producer-1:  # High-volume producer
+    container_name: kafka-producer-1
+    image: shivanshu1333/kafka-producer-${ARCH:-amd64}:latest
+    depends_on:
+      - otel-collector
+      - broker1
+      - broker2
+      - broker3
+      - init-kafka
+    environment:
+      # OpenTelemetry Configuration
+      OTEL_SERVICE_NAME: "kafka-producer"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_METRIC_EXPORT_INTERVAL: "10000"
+      OTEL_EXPORTER_OTLP_TIMEOUT: "10000"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=kafka-producer-1,deployment.environment=dev"
+      OTEL_INSTRUMENTATION_KAFKA_ENABLED: "true"
+      OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: "true"
+      OTEL_PROPAGATORS: "tracecontext,baggage"
+      OTEL_JAVAAGENT_DEBUG: "true"
+      OTEL_LOG_LEVEL: "debug"
+      OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED: "true"
+      OTEL_LOGS_INJECTION_ENABLED: "true"
+      OTEL_TRACES_SAMPLER: "always_on"
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      TOPIC: "topic1"
+      PARTITION_KEY: "key1"
+      MESSAGES_PER_BATCH: "5000"    # Large batches
+      WRITE_DELAY_MS: "50"          # Very fast writing
+      BATCH_DELAY_MS: "3000"        # Moderate delay between bursts
+    networks:
+      - kafka-net
+
+  kafka-producer-2:  # Medium-volume producer
+    container_name: kafka-producer-2
+    image: shivanshu1333/kafka-producer-${ARCH:-amd64}:latest
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
+      - otel-collector
+      - init-kafka
+    environment:
+      # OpenTelemetry Configuration
+      OTEL_SERVICE_NAME: "kafka-producer"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_METRIC_EXPORT_INTERVAL: "10000"
+      OTEL_EXPORTER_OTLP_TIMEOUT: "10000"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=kafka-producer-2,deployment.environment=dev"
+      OTEL_INSTRUMENTATION_KAFKA_ENABLED: "true"
+      OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: "true"
+      OTEL_PROPAGATORS: "tracecontext,baggage"
+      OTEL_JAVAAGENT_DEBUG: "true"
+      OTEL_LOG_LEVEL: "debug"
+      OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED: "true"
+      OTEL_LOGS_INJECTION_ENABLED: "true"
+      OTEL_TRACES_SAMPLER: "always_on"
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      TOPIC: "topic2"
+      PARTITION_KEY: "key2"
+      MESSAGES_PER_BATCH: "2000"    # Medium batches
+      WRITE_DELAY_MS: "100"         # Fast writing
+      BATCH_DELAY_MS: "2000"        # Short delay between bursts
+    networks:
+      - kafka-net
+
+  kafka-producer-3:  # Low-volume producer
+    container_name: kafka-producer-3
+    image: shivanshu1333/kafka-producer-${ARCH:-amd64}:latest
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
+      - otel-collector
+      - init-kafka
+    environment:
+      # OpenTelemetry Configuration
+      OTEL_SERVICE_NAME: "kafka-producer"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_METRIC_EXPORT_INTERVAL: "10000"
+      OTEL_EXPORTER_OTLP_TIMEOUT: "10000"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=kafka-producer-3,deployment.environment=dev"
+      OTEL_INSTRUMENTATION_KAFKA_ENABLED: "true"
+      OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: "true"
+      OTEL_PROPAGATORS: "tracecontext,baggage"
+      OTEL_JAVAAGENT_DEBUG: "true"
+      OTEL_LOG_LEVEL: "debug"
+      OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED: "true"
+      OTEL_LOGS_INJECTION_ENABLED: "true"
+      OTEL_TRACES_SAMPLER: "always_on"
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      TOPIC: "topic3"
+      PARTITION_KEY: "key3"
+      MESSAGES_PER_BATCH: "1000"    # Small batches
+      WRITE_DELAY_MS: "200"         # Moderate writing
+      BATCH_DELAY_MS: "1000"        # Quick bursts
+    networks:
+      - kafka-net
+
+  # Consumer Services with different processing patterns
+  kafka-consumer-1:  # High-magnitude variable consumer
+    container_name: kafka-consumer-1
+    image: shivanshu1333/kafka-consumer-${ARCH:-amd64}:latest
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
+      - otel-collector
+    environment:
+      # OpenTelemetry Configuration
+      OTEL_SERVICE_NAME: "kafka-consumer"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=kafka-consumer,deployment.environment=dev"
+      OTEL_INSTRUMENTATION_KAFKA_ENABLED: "true"
+      OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: "true"
+      OTEL_PROPAGATORS: "tracecontext,baggage"
+      OTEL_JAVAAGENT_DEBUG: "true"
+      OTEL_LOG_LEVEL: "debug"
+      OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED: "true"
+      OTEL_LOGS_INJECTION_ENABLED: "true"
+      OTEL_TRACES_SAMPLER: "always_on"
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "high-variable-group"
+      TOPIC: "topic1"
+      AUTO_OFFSET_RESET: "earliest"
+      MAX_POLL_RECORDS: "500"
+      WAIT_BEFORE_NEXT_POLL_MS: "2000"   # Long poll delay
+      MESSAGE_PROCESSING_TIME_MS: "100"   # Quick processing
+    networks:
+      - kafka-net
+
+  kafka-consumer-2:  # Medium-magnitude variable consumer
+    container_name: kafka-consumer-2
+    image: shivanshu1333/kafka-consumer-${ARCH:-amd64}:latest
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
+      - otel-collector
+    environment:
+      # OpenTelemetry Configuration
+      OTEL_SERVICE_NAME: "kafka-consumer"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=kafka-consumer,deployment.environment=dev"
+      OTEL_INSTRUMENTATION_KAFKA_ENABLED: "true"
+      OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: "true"
+      OTEL_PROPAGATORS: "tracecontext,baggage"
+      OTEL_JAVAAGENT_DEBUG: "true"
+      OTEL_LOG_LEVEL: "debug"
+      OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED: "true"
+      OTEL_LOGS_INJECTION_ENABLED: "true"
+      OTEL_TRACES_SAMPLER: "always_on"
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "medium-variable-group"
+      TOPIC: "topic2"
+      AUTO_OFFSET_RESET: "earliest"
+      MAX_POLL_RECORDS: "500"
+      WAIT_BEFORE_NEXT_POLL_MS: "1000"   # Medium poll delay
+      MESSAGE_PROCESSING_TIME_MS: "200"   # Medium processing
+    networks:
+      - kafka-net
+
+  kafka-consumer-3:  # Low-magnitude variable consumer
+    container_name: kafka-consumer-3
+    image: shivanshu1333/kafka-consumer-${ARCH:-amd64}:latest
+    depends_on:
+      - broker1
+      - broker2
+      - broker3
+      - otel-collector
+    environment:
+      # OpenTelemetry Configuration
+      OTEL_SERVICE_NAME: "kafka-consumer"
+      OTEL_TRACES_EXPORTER: "otlp"
+      OTEL_METRICS_EXPORTER: "otlp"
+      OTEL_LOGS_EXPORTER: "otlp"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector:4317"
+      OTEL_EXPORTER_OTLP_PROTOCOL: "grpc"
+      OTEL_RESOURCE_ATTRIBUTES: "service.name=kafka-consumer,deployment.environment=dev"
+      OTEL_INSTRUMENTATION_KAFKA_ENABLED: "true"
+      OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: "true"
+      OTEL_PROPAGATORS: "tracecontext,baggage"
+      OTEL_JAVAAGENT_DEBUG: "true"
+      OTEL_LOG_LEVEL: "debug"
+      OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED: "true"
+      OTEL_LOGS_INJECTION_ENABLED: "true"
+      OTEL_TRACES_SAMPLER: "always_on"
+      BOOTSTRAP_SERVERS: "broker1:19092,broker2:19093,broker3:19094"
+      CONSUMER_GROUP: "low-variable-group"
+      TOPIC: "topic3"
+      AUTO_OFFSET_RESET: "earliest"
+      MAX_POLL_RECORDS: "500"
+      WAIT_BEFORE_NEXT_POLL_MS: "500"    # Short poll delay
+      MESSAGE_PROCESSING_TIME_MS: "300"   # Slow processing
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1

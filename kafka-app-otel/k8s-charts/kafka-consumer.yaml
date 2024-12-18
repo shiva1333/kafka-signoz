@@ -1,0 +1,438 @@
+# --- RBAC Configuration for the consumer-config-updater ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: consumer-config-updater-sa
+  namespace: kafka-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: consumer-config-updater-role
+  namespace: kafka-system
+rules:
+  - apiGroups: ["batch"]
+    resources: ["cronjobs"]
+    verbs: ["get", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: consumer-config-updater-binding
+  namespace: kafka-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: consumer-config-updater-role
+subjects:
+  - kind: ServiceAccount
+    name: consumer-config-updater-sa
+    namespace: kafka-system
+
+# --- Consumers for Topic1 ---
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kafka-consumer-1a-wave
+  namespace: kafka-system
+  annotations:
+    processing-time: "100"  # initial, will be updated by the updater
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            processing-time: "100"   # replaced {{processing-time}} with "100"
+          labels:
+            app: kafka-consumer
+            wave: "topic1"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: consumer
+              image: docker.io/shivanshu1333/kafka-consumer-amd64:latest
+              env:
+                - name: BOOTSTRAP_SERVERS
+                  value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+                - name: CONSUMER_GROUP
+                  value: "wave-group-1a"
+                - name: TOPIC
+                  value: "topic1"
+                - name: WAIT_BEFORE_NEXT_POLL_MS
+                  value: "10"
+                - name: MESSAGE_PROCESSING_TIME_MS
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['processing-time']
+                - name: OTEL_SERVICE_NAME
+                  value: "kafka-consumer-1a-wave"
+                - name: OTEL_TRACES_EXPORTER
+                  value: "otlp"
+                - name: OTEL_METRICS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_LOGS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: "http://otel-collector:4317"
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: "grpc"
+                - name: AUTO_OFFSET_RESET
+                  value: "earliest"
+                - name: ENABLE_AUTO_COMMIT
+                  value: "false"
+                - name: MAX_POLL_RECORDS
+                  value: "500"
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kafka-consumer-1b-wave
+  namespace: kafka-system
+  annotations:
+    processing-time: "150"
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            processing-time: "150"   # replaced {{processing-time}} with "150"
+          labels:
+            app: kafka-consumer
+            wave: "topic1"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: consumer
+              image: docker.io/shivanshu1333/kafka-consumer-amd64:latest
+              env:
+                - name: BOOTSTRAP_SERVERS
+                  value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+                - name: CONSUMER_GROUP
+                  value: "wave-group-1b"
+                - name: TOPIC
+                  value: "topic1"
+                - name: WAIT_BEFORE_NEXT_POLL_MS
+                  value: "20"
+                - name: MESSAGE_PROCESSING_TIME_MS
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['processing-time']
+                - name: OTEL_SERVICE_NAME
+                  value: "kafka-consumer-1b-wave"
+                - name: OTEL_TRACES_EXPORTER
+                  value: "otlp"
+                - name: OTEL_METRICS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_LOGS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: "http://otel-collector:4317"
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: "grpc"
+                - name: AUTO_OFFSET_RESET
+                  value: "earliest"
+                - name: ENABLE_AUTO_COMMIT
+                  value: "false"
+                - name: MAX_POLL_RECORDS
+                  value: "500"
+
+# --- Consumers for Topic2 ---
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kafka-consumer-2a-wave
+  namespace: kafka-system
+  annotations:
+    processing-time: "200"
+spec:
+  schedule: "*/3 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            processing-time: "200"   # replaced {{processing-time}} with "200"
+          labels:
+            app: kafka-consumer
+            wave: "topic2"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: consumer
+              image: docker.io/shivanshu1333/kafka-consumer-amd64:latest
+              env:
+                - name: BOOTSTRAP_SERVERS
+                  value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+                - name: CONSUMER_GROUP
+                  value: "wave-group-2a"
+                - name: TOPIC
+                  value: "topic2"
+                - name: WAIT_BEFORE_NEXT_POLL_MS
+                  value: "30"
+                - name: MESSAGE_PROCESSING_TIME_MS
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['processing-time']
+                - name: OTEL_SERVICE_NAME
+                  value: "kafka-consumer-2a-wave"
+                - name: OTEL_TRACES_EXPORTER
+                  value: "otlp"
+                - name: OTEL_METRICS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_LOGS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: "http://otel-collector:4317"
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: "grpc"
+                - name: AUTO_OFFSET_RESET
+                  value: "earliest"
+                - name: ENABLE_AUTO_COMMIT
+                  value: "false"
+                - name: MAX_POLL_RECORDS
+                  value: "500"
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kafka-consumer-2b-wave
+  namespace: kafka-system
+  annotations:
+    processing-time: "250"
+spec:
+  schedule: "*/4 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            processing-time: "250"   # replaced {{processing-time}} with "250"
+          labels:
+            app: kafka-consumer
+            wave: "topic2"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: consumer
+              image: docker.io/shivanshu1333/kafka-consumer-amd64:latest
+              env:
+                - name: BOOTSTRAP_SERVERS
+                  value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+                - name: CONSUMER_GROUP
+                  value: "wave-group-2b"
+                - name: TOPIC
+                  value: "topic2"
+                - name: WAIT_BEFORE_NEXT_POLL_MS
+                  value: "40"
+                - name: MESSAGE_PROCESSING_TIME_MS
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['processing-time']
+                - name: OTEL_SERVICE_NAME
+                  value: "kafka-consumer-2b-wave"
+                - name: OTEL_TRACES_EXPORTER
+                  value: "otlp"
+                - name: OTEL_METRICS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_LOGS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: "http://otel-collector:4317"
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: "grpc"
+                - name: AUTO_OFFSET_RESET
+                  value: "earliest"
+                - name: ENABLE_AUTO_COMMIT
+                  value: "false"
+                - name: MAX_POLL_RECORDS
+                  value: "500"
+
+# --- Consumers for Topic3 ---
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kafka-consumer-3a-wave
+  namespace: kafka-system
+  annotations:
+    processing-time: "300"
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            processing-time: "300"   # replaced {{processing-time}} with "300"
+          labels:
+            app: kafka-consumer
+            wave: "topic3"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: consumer
+              image: docker.io/shivanshu1333/kafka-consumer-amd64:latest
+              env:
+                - name: BOOTSTRAP_SERVERS
+                  value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+                - name: CONSUMER_GROUP
+                  value: "wave-group-3a"
+                - name: TOPIC
+                  value: "topic3"
+                - name: WAIT_BEFORE_NEXT_POLL_MS
+                  value: "50"
+                - name: MESSAGE_PROCESSING_TIME_MS
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['processing-time']
+                - name: OTEL_SERVICE_NAME
+                  value: "kafka-consumer-3a-wave"
+                - name: OTEL_TRACES_EXPORTER
+                  value: "otlp"
+                - name: OTEL_METRICS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_LOGS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: "http://otel-collector:4317"
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: "grpc"
+                - name: AUTO_OFFSET_RESET
+                  value: "earliest"
+                - name: ENABLE_AUTO_COMMIT
+                  value: "false"
+                - name: MAX_POLL_RECORDS
+                  value: "500"
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kafka-consumer-3b-wave
+  namespace: kafka-system
+  annotations:
+    processing-time: "350"
+spec:
+  schedule: "*/6 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            processing-time: "350"   # replaced {{processing-time}} with "350"
+          labels:
+            app: kafka-consumer
+            wave: "topic3"
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: consumer
+              image: docker.io/shivanshu1333/kafka-consumer-amd64:latest
+              env:
+                - name: BOOTSTRAP_SERVERS
+                  value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+                - name: CONSUMER_GROUP
+                  value: "wave-group-3b"
+                - name: TOPIC
+                  value: "topic3"
+                - name: WAIT_BEFORE_NEXT_POLL_MS
+                  value: "60"
+                - name: MESSAGE_PROCESSING_TIME_MS
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['processing-time']
+                - name: OTEL_SERVICE_NAME
+                  value: "kafka-consumer-3b-wave"
+                - name: OTEL_TRACES_EXPORTER
+                  value: "otlp"
+                - name: OTEL_METRICS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_LOGS_EXPORTER
+                  value: "otlp"
+                - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                  value: "http://otel-collector:4317"
+                - name: OTEL_EXPORTER_OTLP_PROTOCOL
+                  value: "grpc"
+                - name: AUTO_OFFSET_RESET
+                  value: "earliest"
+                - name: ENABLE_AUTO_COMMIT
+                  value: "false"
+                - name: MAX_POLL_RECORDS
+                  value: "500"
+
+# --- consumer-config-updater CronJob ---
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: consumer-config-updater
+  namespace: kafka-system
+spec:
+  # Run every minute to continuously adjust processing-times
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: consumer-config-updater
+        spec:
+          serviceAccountName: consumer-config-updater-sa
+          securityContext:
+            runAsUser: 0
+          restartPolicy: OnFailure
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl:latest
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  apt-get update && apt-get install -y bc
+                  MINUTE=$(date +%M)
+
+                  # Define PI (4*a(1) is pi in bc)
+                  PI=$(echo "4*a(1)" | bc -l)
+                  # We will create a sinusoidal pattern around 150 ms.
+                  # For example, a wave that varies ±50 ms around 150 ms.
+                  # This means processing-time will oscillate between 100 ms and 200 ms.
+                  # Adjust the frequencies as you like. Lower denominators mean faster oscillations.
+
+                  # Topic1 consumers
+                  # One full cycle approximately every 60 minutes for 1a, and a slightly different one for 1b
+                  C1A_TIME=$(echo "150 + 50 * s($MINUTE * $PI / 30)" | bc -l | xargs printf "%.0f")
+                  C1B_TIME=$(echo "150 + 50 * s($MINUTE * $PI / 45)" | bc -l | xargs printf "%.0f")
+
+                  # Topic2 consumers
+                  # Different frequencies for a distinct pattern
+                  C2A_TIME=$(echo "150 + 50 * s($MINUTE * $PI / 20)" | bc -l | xargs printf "%.0f")
+                  C2B_TIME=$(echo "150 + 50 * s($MINUTE * $PI / 60)" | bc -l | xargs printf "%.0f")
+
+                  # Topic3 consumers
+                  # Faster oscillation for 3a, slower for 3b
+                  C3A_TIME=$(echo "150 + 50 * s($MINUTE * $PI / 15)" | bc -l | xargs printf "%.0f")
+                  C3B_TIME=$(echo "150 + 50 * s($MINUTE * $PI / 40)" | bc -l | xargs printf "%.0f")
+
+                  # Update the CronJob annotations with the new processing times
+                  kubectl annotate --overwrite cronjob kafka-consumer-1a-wave -n kafka-system processing-time="$C1A_TIME"
+                  kubectl annotate --overwrite cronjob kafka-consumer-1b-wave -n kafka-system processing-time="$C1B_TIME"
+
+                  kubectl annotate --overwrite cronjob kafka-consumer-2a-wave -n kafka-system processing-time="$C2A_TIME"
+                  kubectl annotate --overwrite cronjob kafka-consumer-2b-wave -n kafka-system processing-time="$C2B_TIME"
+
+                  kubectl annotate --overwrite cronjob kafka-consumer-3a-wave -n kafka-system processing-time="$C3A_TIME"
+                  kubectl annotate --overwrite cronjob kafka-consumer-3b-wave -n kafka-system processing-time="$C3B_TIME"

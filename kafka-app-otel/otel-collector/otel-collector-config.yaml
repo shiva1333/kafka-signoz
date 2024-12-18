@@ -1,0 +1,35 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: "0.0.0.0:4317"
+      http:
+        endpoint: "0.0.0.0:4318"
+
+  # Add Kafka metrics receiver
+  kafkametrics:
+    brokers:
+      - broker1:19092
+      - broker2:19093
+      - broker3:19094
+    protocol_version: "2.0.0"
+    collection_interval: 5s
+    scrapers:
+      - brokers    # Collects broker metrics
+      - topics     # Collects topic metrics
+      - consumers  # Collects consumer group metrics
+
+exporters:
+  debug:
+    verbosity: detailed
+
+#  otlp:
+#    endpoint: "my-release-signoz-otel-collector.platform.svc.cluster.local:4317"
+#    tls:
+#      insecure: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp, kafkametrics]
+      exporters: [debug]
