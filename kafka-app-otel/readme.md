@@ -1,73 +1,155 @@
-## configure producer env variables
+# Kafka Application with OpenTelemetry
 
-```bash
-export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export TOPIC="topic1"
-export PARTITION_KEY="key1"
+A Kafka application demonstrating producer-consumer pattern with OpenTelemetry auto-instrumentation. Features multiple producers and consumers creating wave-like consumer lag patterns.
+
+## Project Structure
+```
+├── common/                     # Shared components
+│   ├── BaseProducer.java      # Base producer implementation
+│   ├── BaseConsumer.java      # Base consumer implementation
+│   └── pom.xml                # Common dependencies
+├── docker/                    # Docker compose files
+├── k8s-charts/               # Kubernetes manifests
+├── kafka-producer/           # Producer module
+└── kafka-consumer/           # Consumer module
 ```
 
-## configure consumer env variables
+## Quick Start
 
+1. **Build Application**
 ```bash
-export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export CONSUMER_GROUP="cg1"
-export TOPIC="topic1"
+mvn clean package
 ```
 
-## configure producer env variables
-
+2. **Build & Push Docker Images**
 ```bash
-export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export TOPIC="topic2"
-export PARTITION_KEY="key2"
+# Build images for both architectures
+make build-all
+
+# Push to Docker Hub (requires docker login)
+make push-all
 ```
 
-## configure consumer env variables
+3. **Run Application**
 
+Using Docker Compose:
 ```bash
-export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export CONSUMER_GROUP="cg2"
-export TOPIC="topic2"
+cd docker
+# For AMD64
+ARCH=amd64 docker-compose up -d
+# For ARM64
+ARCH=arm64 docker-compose up -d
 ```
 
-## tagMap, stringTagMap, numberTagMap
-
+Using Kubernetes:
 ```bash
-export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export CONSUMER_GROUP="cg3"
-export TOPIC="topic1"
+# Apply in order
+kubectl apply -f k8s-charts/kafka-infra.yaml
+kubectl wait --for=condition=ready pod -l app=kafka-broker -n kafka-system --timeout=300s
+
+kubectl apply -f k8s-charts/otel-collector.yaml
+kubectl wait --for=condition=ready pod -l app=otel-collector -n kafka-system --timeout=120s
+
+kubectl apply -f k8s-charts/kafka-producer.yaml
+kubectl apply -f k8s-charts/kafka-consumer.yaml
 ```
 
----
-```bash
-export BOOTSTRAP_SERVERS="127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
-export CONSUMER_GROUP="cg4"
-export TOPIC="topic2"
+## Configuration
+
+### OpenTelemetry Settings
+```properties
+OTEL_SERVICE_NAME: kafka-producer/kafka-consumer
+OTEL_TRACES_EXPORTER: otlp
+OTEL_LOGS_EXPORTER: otlp
+OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+OTEL_EXPORTER_OTLP_PROTOCOL: grpc
+OTEL_INSTRUMENTATION_KAFKA_ENABLED: true
+OTEL_INSTRUMENTATION_KAFKA_CONTEXT_PROPAGATION_ENABLED: true
+OTEL_PROPAGATORS: tracecontext,baggage
 ```
 
----
- # start consumer
-```bash
-java -javaagent:${PWD}/opentelemetry-javagent/opentelemetry-javaagent.jar \
-        -Dotel.service.name=consumer-svc \
-        -Dotel.traces.exporter=otlp \
-        -Dotel.metrics.exporter=otlp \
-        -Dotel.logs.exporter=otlp \
-        -Dotel.instrumentation.kafka.producer-propagation.enabled=true \
-        -Dotel.instrumentation.kafka.experimental-span-attributes=true \
-        -Dotel.instrumentation.kafka.metric-reporter.enabled=true \
-        -jar ${PWD}/kafka-app-otel/kafka-consumer/target/kafka-consumer-1.0-SNAPSHOT-jar-with-dependencies.jar
+### Producer Settings
+```properties
+BOOTSTRAP_SERVERS: broker1:19092,broker2:19093,broker3:19094
+TOPIC: topic1/topic2/topic3
+MESSAGES_PER_BATCH: 1000-5000    # Varies by producer
+WRITE_DELAY_MS: 50-200          # Varies by producer
+BATCH_DELAY_MS: 1000-3000       # Varies by producer
 ```
----
-# start a producer
-```bash
-java -javaagent:${PWD}/opentelemetry-javagent/opentelemetry-javaagent.jar \
-       -Dotel.service.name=producer-svc \
-       -Dotel.traces.exporter=otlp \
-       -Dotel.metrics.exporter=otlp \
-       -Dotel.logs.exporter=otlp \
-       -jar ${PWD}/kafka-app-otel/kafka-producer/target/kafka-producer-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+### Consumer Settings
+```properties
+BOOTSTRAP_SERVERS: broker1:19092,broker2:19093,broker3:19094
+CONSUMER_GROUP: wave-group-1/2/3
+TOPIC: topic1/topic2/topic3
+WAIT_BEFORE_NEXT_POLL_MS: 10-60    # Varies by consumer
+MESSAGE_PROCESSING_TIME_MS: 100-350 # Varies by consumer
 ```
----
 
+## Monitoring
 
+View application telemetry:
+```bash
+# Producer logs with trace context
+docker-compose logs -f kafka-producer-1
+docker-compose logs -f kafka-producer-2
+docker-compose logs -f kafka-producer-3
+
+# Consumer logs with trace context
+docker-compose logs -f kafka-consumer-1
+docker-compose logs -f kafka-consumer-2
+docker-compose logs -f kafka-consumer-3
+
+# OpenTelemetry collector logs
+docker-compose logs -f otel-collector
+```
+
+## Cleanup
+```bash
+# Docker Compose
+docker-compose down
+
+# Docker Images
+make clean
+
+# Kubernetes
+kubectl delete -f k8s-charts/
+```
+
+## Kafka Internals
+```bash
+============================================================
+Kafka Topic Distribution with 2 Brokers and 3 Partitions
+Replication Factor = 2
+============================================================
+
+            Topic: sample_topic (3 partitions, RF=2)
+            ---------------------------------------
+
+                  +-----------------------+
+                  |       Broker 1        |
+                  +-----------------------+
+                      | P1 Leader         | <--- Partition 1 (Leader)
+                      | P2 Follower       | <--- Partition 2 (Replica)
+                      | P3 Leader         | <--- Partition 3 (Leader)
+                  +-----------------------+
+
+                  +-----------------------+
+                  |       Broker 2        |
+                  +-----------------------+
+                      | P1 Follower       | <--- Partition 1 (Replica)
+                      | P2 Leader         | <--- Partition 2 (Leader)
+                      | P3 Follower       | <--- Partition 3 (Replica)
+                  +-----------------------+
+
+============================================================
+Explanation:
+- Each topic is divided into partitions (P1, P2, P3).
+- A partition can have a leader and one or more followers (based on RF).
+- Leaders handle writes/reads, while followers replicate data for fault tolerance.
+- Here:
+    - Partition 1 (P1) leader resides on Broker 1, with a follower on Broker 2.
+    - Partition 2 (P2) leader resides on Broker 2, with a follower on Broker 1.
+    - Partition 3 (P3) leader resides on Broker 1, with a follower on Broker 2.
+      ============================================================
+```

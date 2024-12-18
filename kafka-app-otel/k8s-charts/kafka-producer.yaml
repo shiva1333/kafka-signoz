@@ -1,0 +1,192 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer-1
+  namespace: kafka-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+      producer_id: "1"
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+        producer_id: "1"
+    spec:
+      terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: wait-for-kafka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z kafka-broker-0.kafka-broker 9092; do echo waiting for kafka; sleep 2; done;']
+      containers:
+        - name: producer
+          image: docker.io/shivanshu1333/kafka-producer-amd64:latest
+          env:
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+            - name: TOPIC
+              value: "topic1"
+            # REMOVED PARTITION_KEY so messages go to all partitions
+            - name: MESSAGES_PER_BATCH
+              value: "5000"
+            - name: WRITE_DELAY_MS
+              value: "50"
+            - name: BATCH_DELAY_MS
+              value: "3000"
+            - name: OTEL_SERVICE_NAME
+              value: "kafka-producer-1"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector:4317"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "grpc"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name=kafka-producer-1,deployment.environment=dev"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer-2
+  namespace: kafka-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+      producer_id: "2"
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+        producer_id: "2"
+    spec:
+      terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: wait-for-kafka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z kafka-broker-0.kafka-broker 9092; do echo waiting for kafka; sleep 2; done;']
+      containers:
+        - name: producer
+          image: docker.io/shivanshu1333/kafka-producer-amd64:latest
+          env:
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+            - name: TOPIC
+              value: "topic2"
+            # REMOVED PARTITION_KEY to distribute load across partitions
+            - name: MESSAGES_PER_BATCH
+              value: "2000"
+            - name: WRITE_DELAY_MS
+              value: "100"
+            - name: BATCH_DELAY_MS
+              value: "2000"
+            - name: OTEL_SERVICE_NAME
+              value: "kafka-producer-2"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector:4317"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "grpc"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name=kafka-producer-2,deployment.environment=dev"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer-3
+  namespace: kafka-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+      producer_id: "3"
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+        producer_id: "3"
+    spec:
+      terminationGracePeriodSeconds: 60
+      initContainers:
+        - name: wait-for-kafka
+          image: busybox
+          command: ['sh', '-c', 'until nc -z kafka-broker-0.kafka-broker 9092; do echo waiting for kafka; sleep 2; done;']
+      containers:
+        - name: producer
+          image: docker.io/shivanshu1333/kafka-producer-amd64:latest
+          env:
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+            - name: TOPIC
+              value: "topic3"
+            # REMOVED PARTITION_KEY as well
+            - name: MESSAGES_PER_BATCH
+              value: "1000"
+            - name: WRITE_DELAY_MS
+              value: "200"
+            - name: BATCH_DELAY_MS
+              value: "1000"
+            - name: OTEL_SERVICE_NAME
+              value: "kafka-producer-3"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector:4317"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "grpc"
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "service.name=kafka-producer-3,deployment.environment=dev"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "sleep 10"]

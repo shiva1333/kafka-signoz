@@ -8,97 +8,125 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class BaseConsumer {
-    private static final String BOOTSTRAP_SERVERS_ENV_VAR = "BOOTSTRAP_SERVERS";
-    private static final String CONSUMER_GROUP_ENV_VAR = "CONSUMER_GROUP";
-    private static final String TOPIC_ENV_VAR = "TOPIC";
+public class BaseConsumer implements Runnable {
+    protected static final Logger log = LogManager.getLogger(BaseConsumer.class);
+    
+    // Configuration Environment Variables
+    private static final String BOOTSTRAP_SERVERS_ENV = "BOOTSTRAP_SERVERS";
+    private static final String CONSUMER_GROUP_ENV = "CONSUMER_GROUP";
+    private static final String TOPIC_ENV = "TOPIC";
+    private static final String WAIT_BEFORE_NEXT_POLL_MS_ENV = "WAIT_BEFORE_NEXT_POLL_MS";
+    private static final String MESSAGE_PROCESSING_TIME_MS_ENV = "MESSAGE_PROCESSING_TIME_MS";
+    
+    // Default Values
     private static final String DEFAULT_BOOTSTRAP_SERVERS = "localhost:9092";
     private static final String DEFAULT_TOPIC = "topic1";
-    private static final String DEFAULT_CONSUMER_GROUP = "my-consumer-group";
+    private static final String DEFAULT_CONSUMER_GROUP = "minimal-consumer-group";
+    private static final long DEFAULT_WAIT_BEFORE_NEXT_POLL_MS = 1000;
+    private static final long DEFAULT_MESSAGE_PROCESSING_TIME_MS = 500;
+    private static final Duration POLL_TIMEOUT = Duration.ofMillis(100);
 
-    public static final Logger log = LogManager.getLogger(BaseConsumer.class);
-
+    // Instance variables
     protected String bootstrapServers;
     protected String consumerGroup;
     protected String topic;
-    protected Consumer<String, String> consumer;
+    protected long waitBeforeNextPollMs;
+    protected long messageProcessingTimeMs;
+    protected KafkaConsumer<String, String> consumer;
+    protected final AtomicBoolean running = new AtomicBoolean(true);
 
-    protected AtomicBoolean running = new AtomicBoolean(true);
+    protected void loadConfiguration(Map<String, String> env) {
+        bootstrapServers = env.getOrDefault(BOOTSTRAP_SERVERS_ENV, DEFAULT_BOOTSTRAP_SERVERS);
+        consumerGroup = env.getOrDefault(CONSUMER_GROUP_ENV, DEFAULT_CONSUMER_GROUP);
+        topic = env.getOrDefault(TOPIC_ENV, DEFAULT_TOPIC);
+        waitBeforeNextPollMs = Long.parseLong(env.getOrDefault(
+            WAIT_BEFORE_NEXT_POLL_MS_ENV, String.valueOf(DEFAULT_WAIT_BEFORE_NEXT_POLL_MS)));
+        messageProcessingTimeMs = Long.parseLong(env.getOrDefault(
+            MESSAGE_PROCESSING_TIME_MS_ENV, String.valueOf(DEFAULT_MESSAGE_PROCESSING_TIME_MS)));
+        
+        log.info("Configuration loaded - bootstrap: {}, group: {}, topic: {}", 
+                bootstrapServers, consumerGroup, topic);
+        log.info("Timing configuration - waitBeforeNextPoll: {}ms, messageProcessingTime: {}ms", 
+                waitBeforeNextPollMs, messageProcessingTimeMs);
+    }
 
+    protected Properties loadKafkaConsumerProperties() {
+        Properties props = new Properties();
+        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, consumerGroup);
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "500");
+        return props;
+    }
+
+    protected void createKafkaConsumer(Properties props) {
+        consumer = new KafkaConsumer<>(props);
+        consumer.subscribe(Collections.singletonList(topic));
+        log.info("Subscribed to topic: {}", topic);
+    }
+
+    @Override
     public void run() {
-        log.info("Subscribing to topic [{}]", this.topic);
-        this.consumer.subscribe(List.of(this.topic));
-
-        try {
-            log.info("Polling for records...");
-            while (this.running.get()) {
-                try {
-                    // Poll for records with a timeout duration
-                    ConsumerRecords<String, String> records = this.consumer.poll(Duration.ofMillis(10000));
-
-                    for (ConsumerRecord<String, String> record : records) {
-                        log.info("Received message key = [{}], value = [{}], offset = [{}]", record.key(), record.value(), record.offset());
-
-                        // Commit offsets after processing each record
-                        try {
-                            this.consumer.commitSync();
-                            log.info("Successfully committed offset for record key = [{}]", record.key());
-                        } catch (CommitFailedException cfe) {
-                            log.error("CommitFailedException while committing offset for record key = [{}].", record.key(), cfe);
-                        }
-                    }
-                } catch (WakeupException we) {
-                    if (running.get()) {
-                        log.warn("Received WakeupException while polling, but consumer is not shutting down.", we);
-                        throw we;
-                    }
-                    log.info("Consumer shutdown initiated, WakeupException caught and handled.");
-                } catch (Exception e) {
-                    log.error("Unexpected error during polling. Consumer will continue polling.", e);
-                }
-            }
-        } catch (Exception e) {
-            log.error("Error in Kafka consumer run method, shutting down consumer.", e);
-        } finally {
+        log.info("Starting consumer message loop");
+        while (running.get()) {
             try {
-                log.info("Closing Kafka consumer...");
-                this.consumer.unsubscribe();
-                this.consumer.close();
-                log.info("Kafka consumer closed.");
+                ConsumerRecords<String, String> records = consumer.poll(POLL_TIMEOUT);
+                if (!records.isEmpty()) {
+                    for (ConsumerRecord<String, String> record : records) {
+                        processRecord(record);
+                        simulateProcessing();
+                    }
+                    consumer.commitSync();
+                    log.info("Committed offsets for {} records", records.count());
+                }
+                waitBeforeNextPoll();
+            } catch (WakeupException e) {
+                if (running.get()) throw e;
             } catch (Exception e) {
-                log.error("Error occurred while closing Kafka consumer.", e);
+                log.error("Error processing records", e);
             }
         }
     }
 
-    public void loadConfiguration(Map<String, String> map) {
-        this.bootstrapServers = map.getOrDefault(BOOTSTRAP_SERVERS_ENV_VAR, DEFAULT_BOOTSTRAP_SERVERS);
-        this.consumerGroup = map.getOrDefault(CONSUMER_GROUP_ENV_VAR, DEFAULT_CONSUMER_GROUP);
-        this.topic = map.getOrDefault(TOPIC_ENV_VAR, DEFAULT_TOPIC);
+    protected void processRecord(ConsumerRecord<String, String> record) {
+        log.info("Received: key = {}, value = {}, partition = {}, offset = {}",
+                record.key(), record.value(), record.partition(), record.offset());
     }
 
-    public Properties loadKafkaConsumerProperties() {
-        Properties props = new Properties();
-        props.setProperty(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, this.bootstrapServers);
-        props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.setProperty(CommonClientConfigs.GROUP_ID_CONFIG, this.consumerGroup);
-        props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        props.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
-        props.setProperty(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
-        props.setProperty(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, "10000");
-        props.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "500");
-        props.setProperty(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "300000");
-
-        return props;
+    private void simulateProcessing() {
+        try {
+            Thread.sleep(messageProcessingTimeMs);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
-    public void createKafkaConsumer(Properties props) {
-        this.consumer = new KafkaConsumer<>(props);
+    private void waitBeforeNextPoll() {
+        try {
+            Thread.sleep(waitBeforeNextPollMs);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void shutdown() {
+        log.info("Initiating consumer shutdown");
+        running.set(false);
+        if (consumer != null) {
+            consumer.wakeup();
+            try {
+                consumer.close();
+                log.info("Consumer closed");
+            } catch (Exception e) {
+                log.error("Error closing consumer", e);
+            }
+        }
     }
 }
