@@ -34,7 +34,7 @@ subjects:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: kafka-consumer-1a-wave
+  name: kafka-consumer-high-freq-1
   namespace: kafka-system
   annotations:
     processing-time: "100"  # initial, will be updated by the updater
@@ -49,7 +49,7 @@ spec:
             processing-time: "100"   # replaced {{processing-time}} with "100"
           labels:
             app: kafka-consumer
-            wave: "topic1"
+            processing: "high-freq"
         spec:
           restartPolicy: Never
           containers:
@@ -59,9 +59,9 @@ spec:
                 - name: BOOTSTRAP_SERVERS
                   value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
                 - name: CONSUMER_GROUP
-                  value: "wave-group-1a"
+                  value: "high-freq-group"
                 - name: TOPIC
-                  value: "topic1"
+                  value: "topic1,topic2,topic3"
                 - name: WAIT_BEFORE_NEXT_POLL_MS
                   value: "10"
                 - name: MESSAGE_PROCESSING_TIME_MS
@@ -69,7 +69,7 @@ spec:
                     fieldRef:
                       fieldPath: metadata.annotations['processing-time']
                 - name: OTEL_SERVICE_NAME
-                  value: "kafka-consumer-1a-wave"
+                  value: "kafka-consumer-high-freq-1"
                 - name: OTEL_TRACES_EXPORTER
                   value: "otlp"
                 - name: OTEL_METRICS_EXPORTER
@@ -116,9 +116,9 @@ spec:
                 - name: BOOTSTRAP_SERVERS
                   value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
                 - name: CONSUMER_GROUP
-                  value: "wave-group-1b"
+                  value: "high-freq-group"
                 - name: TOPIC
-                  value: "topic1"
+                  value: "topic1,topic2,topic3"
                 - name: WAIT_BEFORE_NEXT_POLL_MS
                   value: "20"
                 - name: MESSAGE_PROCESSING_TIME_MS
@@ -149,7 +149,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: kafka-consumer-2a-wave
+  name: kafka-consumer-medium-freq-1
   namespace: kafka-system
   annotations:
     processing-time: "200"
@@ -164,7 +164,7 @@ spec:
             processing-time: "200"   # replaced {{processing-time}} with "200"
           labels:
             app: kafka-consumer
-            wave: "topic2"
+            processing: "medium-freq"
         spec:
           restartPolicy: Never
           containers:
@@ -174,9 +174,9 @@ spec:
                 - name: BOOTSTRAP_SERVERS
                   value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
                 - name: CONSUMER_GROUP
-                  value: "wave-group-2a"
+                  value: "medium-freq-group"
                 - name: TOPIC
-                  value: "topic2"
+                  value: "topic1,topic2,topic3"
                 - name: WAIT_BEFORE_NEXT_POLL_MS
                   value: "30"
                 - name: MESSAGE_PROCESSING_TIME_MS
@@ -184,7 +184,7 @@ spec:
                     fieldRef:
                       fieldPath: metadata.annotations['processing-time']
                 - name: OTEL_SERVICE_NAME
-                  value: "kafka-consumer-2a-wave"
+                  value: "kafka-consumer-medium-freq-1"
                 - name: OTEL_TRACES_EXPORTER
                   value: "otlp"
                 - name: OTEL_METRICS_EXPORTER
@@ -231,9 +231,9 @@ spec:
                 - name: BOOTSTRAP_SERVERS
                   value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
                 - name: CONSUMER_GROUP
-                  value: "wave-group-2b"
+                  value: "medium-freq-group"
                 - name: TOPIC
-                  value: "topic2"
+                  value: "topic1,topic2,topic3"
                 - name: WAIT_BEFORE_NEXT_POLL_MS
                   value: "40"
                 - name: MESSAGE_PROCESSING_TIME_MS
@@ -289,9 +289,9 @@ spec:
                 - name: BOOTSTRAP_SERVERS
                   value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
                 - name: CONSUMER_GROUP
-                  value: "wave-group-3a"
+                  value: "low-freq-group"
                 - name: TOPIC
-                  value: "topic3"
+                  value: "topic1,topic2,topic3"
                 - name: WAIT_BEFORE_NEXT_POLL_MS
                   value: "50"
                 - name: MESSAGE_PROCESSING_TIME_MS
@@ -346,9 +346,9 @@ spec:
                 - name: BOOTSTRAP_SERVERS
                   value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
                 - name: CONSUMER_GROUP
-                  value: "wave-group-3b"
+                  value: "low-freq-group"
                 - name: TOPIC
-                  value: "topic3"
+                  value: "topic1,topic2,topic3"
                 - name: WAIT_BEFORE_NEXT_POLL_MS
                   value: "60"
                 - name: MESSAGE_PROCESSING_TIME_MS

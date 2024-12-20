@@ -27,8 +27,7 @@ spec:
             - name: BOOTSTRAP_SERVERS
               value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
             - name: TOPIC
-              value: "topic1"
-            # REMOVED PARTITION_KEY so messages go to all partitions
+              value: "topic1,topic2,topic3"
             - name: MESSAGES_PER_BATCH
               value: "5000"
             - name: WRITE_DELAY_MS
@@ -92,8 +91,7 @@ spec:
             - name: BOOTSTRAP_SERVERS
               value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
             - name: TOPIC
-              value: "topic2"
-            # REMOVED PARTITION_KEY to distribute load across partitions
+              value: "topic2,topic3,topic1"
             - name: MESSAGES_PER_BATCH
               value: "2000"
             - name: WRITE_DELAY_MS
@@ -157,8 +155,7 @@ spec:
             - name: BOOTSTRAP_SERVERS
               value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
             - name: TOPIC
-              value: "topic3"
-            # REMOVED PARTITION_KEY as well
+              value: "topic3,topic1,topic2"
             - name: MESSAGES_PER_BATCH
               value: "1000"
             - name: WRITE_DELAY_MS

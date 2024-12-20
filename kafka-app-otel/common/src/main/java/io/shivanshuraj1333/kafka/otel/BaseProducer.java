@@ -93,29 +93,36 @@ public class BaseProducer implements Runnable {
 
     protected void processBatch() throws InterruptedException {
         log.info("Starting new batch of {} messages", messagesPerBatch);
+        String[] topics = topic.split(",");
+        
         for (int i = 0; i < messagesPerBatch && running.get(); i++) {
+            // Select topic in round-robin fashion
+            String selectedTopic = topics[i % topics.length];
             String message = generateMessage();
-            sendMessage(message);
+            
+            ProducerRecord<String, String> record = new ProducerRecord<>(
+                selectedTopic,
+                null,  // Let Kafka handle partitioning
+                System.currentTimeMillis(),
+                String.valueOf(i),  // Use message number as key for even distribution
+                message
+            );
+            
+            producer.send(record, (metadata, exception) -> {
+                if (exception != null) {
+                    log.error("Error sending message: {}", message, exception);
+                } else {
+                    log.info("Message sent: topic={}, partition={}, offset={}, message={}", 
+                            metadata.topic(), metadata.partition(), metadata.offset(), message);
+                }
+            });
+            
             Thread.sleep(writeDelayMs);
         }
     }
 
     protected String generateMessage() {
         return String.format("Message-%d", messageCounter.incrementAndGet());
-    }
-
-    protected void sendMessage(String message) {
-        ProducerRecord<String, String> record = 
-            new ProducerRecord<>(topic, partitionKey, message);
-        
-        producer.send(record, (metadata, exception) -> {
-            if (exception != null) {
-                log.error("Error sending message: {}", message, exception);
-            } else {
-                log.info("Message sent: topic={}, partition={}, offset={}, message={}", 
-                        metadata.topic(), metadata.partition(), metadata.offset(), message);
-            }
-        });
     }
 
     public void shutdown() {

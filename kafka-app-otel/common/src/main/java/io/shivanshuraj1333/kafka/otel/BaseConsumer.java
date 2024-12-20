@@ -68,8 +68,9 @@ public class BaseConsumer implements Runnable {
 
     protected void createKafkaConsumer(Properties props) {
         consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Collections.singletonList(topic));
-        log.info("Subscribed to topic: {}", topic);
+        List<String> topics = Arrays.asList(topic.split(","));
+        consumer.subscribe(topics);
+        log.info("Subscribed to topics: {}", topics);
     }
 
     @Override
