@@ -1,0 +1,171 @@
+# --- Consumers ---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer-1
+  namespace: kafka-system
+  annotations:
+    processing-time: "100"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+      consumer_id: "1"
+  template:
+    metadata:
+      annotations:
+        processing-time: "100"
+      labels:
+        app: kafka-consumer
+        consumer_id: "1"
+    spec:
+      containers:
+        - name: consumer
+          image: docker.io/shivanshu1333/kafka-consumer-arm64:latest
+          env:
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+            - name: CONSUMER_GROUP
+              value: "consumer-group-1"
+            - name: TOPIC
+              value: "topic1,topic2,topic3"
+            - name: WAIT_BEFORE_NEXT_POLL_MS
+              value: "50"
+            - name: MESSAGE_PROCESSING_TIME_MS
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['processing-time']
+            - name: OTEL_SERVICE_NAME
+              value: "kafka-consumer-1"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector:4318"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: AUTO_OFFSET_RESET
+              value: "earliest"
+            - name: ENABLE_AUTO_COMMIT
+              value: "false"
+            - name: MAX_POLL_RECORDS
+              value: "500"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer-2
+  namespace: kafka-system
+  annotations:
+    processing-time: "200"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+      consumer_id: "2"
+  template:
+    metadata:
+      annotations:
+        processing-time: "200"
+      labels:
+        app: kafka-consumer
+        consumer_id: "2"
+    spec:
+      containers:
+        - name: consumer
+          image: docker.io/shivanshu1333/kafka-consumer-arm64:latest
+          env:
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+            - name: CONSUMER_GROUP
+              value: "consumer-group-2"
+            - name: TOPIC
+              value: "topic2,topic3,topic1"
+            - name: WAIT_BEFORE_NEXT_POLL_MS
+              value: "100"
+            - name: MESSAGE_PROCESSING_TIME_MS
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['processing-time']
+            - name: OTEL_SERVICE_NAME
+              value: "kafka-consumer-2"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector:4318"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: AUTO_OFFSET_RESET
+              value: "earliest"
+            - name: ENABLE_AUTO_COMMIT
+              value: "false"
+            - name: MAX_POLL_RECORDS
+              value: "500"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer-3
+  namespace: kafka-system
+  annotations:
+    processing-time: "300"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+      consumer_id: "3"
+  template:
+    metadata:
+      annotations:
+        processing-time: "300"
+      labels:
+        app: kafka-consumer
+        consumer_id: "3"
+    spec:
+      containers:
+        - name: consumer
+          image: docker.io/shivanshu1333/kafka-consumer-arm64:latest
+          env:
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-0.kafka-broker:9092,kafka-broker-1.kafka-broker:9092,kafka-broker-2.kafka-broker:9092"
+            - name: CONSUMER_GROUP
+              value: "consumer-group-3"
+            - name: TOPIC
+              value: "topic3,topic1,topic2"
+            - name: WAIT_BEFORE_NEXT_POLL_MS
+              value: "200"
+            - name: MESSAGE_PROCESSING_TIME_MS
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['processing-time']
+            - name: OTEL_SERVICE_NAME
+              value: "kafka-consumer-3"
+            - name: OTEL_TRACES_EXPORTER
+              value: "otlp"
+            - name: OTEL_METRICS_EXPORTER
+              value: "otlp"
+            - name: OTEL_LOGS_EXPORTER
+              value: "otlp"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector:4318"
+            - name: OTEL_EXPORTER_OTLP_PROTOCOL
+              value: "http/protobuf"
+            - name: AUTO_OFFSET_RESET
+              value: "earliest"
+            - name: ENABLE_AUTO_COMMIT
+              value: "false"
+            - name: MAX_POLL_RECORDS
+              value: "500"
